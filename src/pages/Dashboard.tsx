@@ -1,10 +1,10 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Instagram } from "lucide-react";
 import { RewardTierEditor } from "@/components/dashboard/RewardTierEditor";
 import { MentionsTable } from "@/components/dashboard/MentionsTable";
+import { Analytics } from "@/components/dashboard/Analytics";
 import { useToast } from "@/hooks/use-toast";
 
 const Dashboard = () => {
@@ -12,7 +12,6 @@ const Dashboard = () => {
   const [isConnected, setIsConnected] = React.useState(false);
 
   const handleInstagramConnect = () => {
-    // This would integrate with Instagram API in production
     setIsConnected(true);
     toast({
       title: "Instagram Connected",
@@ -37,15 +36,8 @@ const Dashboard = () => {
         </Button>
       </div>
 
-      {/* Reward Tiers Section */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Reward Tiers</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <RewardTierEditor />
-        </CardContent>
-      </Card>
+      {/* Analytics Section */}
+      <Analytics />
 
       {/* Mentions Tracking Section */}
       <Card>
@@ -54,6 +46,16 @@ const Dashboard = () => {
         </CardHeader>
         <CardContent>
           <MentionsTable />
+        </CardContent>
+      </Card>
+
+      {/* Reward Tiers Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Reward Tiers</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <RewardTierEditor />
         </CardContent>
       </Card>
     </div>

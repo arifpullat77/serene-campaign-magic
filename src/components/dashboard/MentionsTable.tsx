@@ -7,6 +7,7 @@ interface Mention {
   instagramId: string;
   profileUrl: string;
   followers: number;
+  estimatedReach: number;
   uploadTime: string;
   couponEligible: string;
   status: "Coupon Sent" | "Pending";
@@ -20,6 +21,7 @@ export const MentionsTable = () => {
       instagramId: "@user1",
       profileUrl: "https://instagram.com/user1",
       followers: 1200,
+      estimatedReach: 840, // Estimated as 70% of followers
       uploadTime: "2024-02-20T10:30:00",
       couponEligible: "500 INR",
       status: "Coupon Sent",
@@ -29,6 +31,7 @@ export const MentionsTable = () => {
       instagramId: "@user2",
       profileUrl: "https://instagram.com/user2",
       followers: 2500,
+      estimatedReach: 1750, // Estimated as 70% of followers
       uploadTime: "2024-02-20T11:15:00",
       couponEligible: "1000 INR",
       status: "Pending",
@@ -41,6 +44,7 @@ export const MentionsTable = () => {
         <TableRow>
           <TableHead>Instagram ID</TableHead>
           <TableHead>Followers</TableHead>
+          <TableHead>Estimated Reach</TableHead>
           <TableHead>Upload Time</TableHead>
           <TableHead>Coupon Eligible</TableHead>
           <TableHead>Status</TableHead>
@@ -60,6 +64,7 @@ export const MentionsTable = () => {
               </a>
             </TableCell>
             <TableCell>{mention.followers.toLocaleString()}</TableCell>
+            <TableCell>{mention.estimatedReach.toLocaleString()}</TableCell>
             <TableCell>
               {new Date(mention.uploadTime).toLocaleString()}
             </TableCell>
