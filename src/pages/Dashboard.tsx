@@ -40,7 +40,7 @@ const Dashboard = () => {
       <Analytics />
 
       {/* Mentions Tracking Section */}
-      <Card>
+      <Card className="bg-white/10 backdrop-blur-sm border-gray-800">
         <CardHeader>
           <CardTitle>Customer Mentions</CardTitle>
         </CardHeader>
@@ -50,7 +50,7 @@ const Dashboard = () => {
       </Card>
 
       {/* Reward Tiers Section */}
-      <Card>
+      <Card className="bg-white/10 backdrop-blur-sm border-gray-800">
         <CardHeader>
           <CardTitle>Reward Tiers</CardTitle>
         </CardHeader>
