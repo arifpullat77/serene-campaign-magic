@@ -8,7 +8,7 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900">
+    <div className="min-h-screen flex flex-col bg-gray-900 font-lexend">
       <Navbar />
       
       <main className="flex-grow">
@@ -16,13 +16,17 @@ const Index = () => {
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-5xl font-bold mb-6 gradient-text">
-                Turn Your Customers Into Brand Marketeers
+              <h1 className="text-5xl font-bold mb-6 gradient-text lowercase">
+                turn your customers into brand marketeers
               </h1>
-              <p className="text-2xl text-gray-400 mb-8">
-                Cut Costs : More Branding
+              <p className="text-2xl text-gray-400 mb-8 lowercase">
+                cut costs : more branding
               </p>
-              <Button size="lg" onClick={() => navigate("/signup")} className="animate-fade-up">
+              <Button 
+                size="lg" 
+                onClick={() => navigate("/login")} 
+                className="animate-fade-up"
+              >
                 Join Waitlist
               </Button>
             </div>
@@ -30,7 +34,7 @@ const Index = () => {
         </section>
 
         {/* Process Section */}
-        <section className="py-20 bg-gray-900 text-white">
+        <section className="py-20 bg-gray-900 text-white border-t border-primary-500">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
               <div className="text-center">
@@ -79,7 +83,7 @@ const Index = () => {
         </section>
 
         {/* Meta Section */}
-        <section className="py-20 bg-gray-900">
+        <section className="py-20 bg-gray-900 border-t border-primary-500">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold text-white mb-6">
               Meta has looted $2.7 billion, while Flipkart too $650 million from consumer brands
