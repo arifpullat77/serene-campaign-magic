@@ -85,6 +85,15 @@ const Index = () => {
       {/* Process Section */}
       <section className="py-20 text-white border-t border-primary-500/30">
         <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4 gradient-text">
+              Link Your Instagram & Never Look Back
+            </h2>
+            <p className="text-xl text-gray-400">
+              Automated But You Decide Offers!
+            </p>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
             <div className="text-center">
               <div className="flex justify-center mb-6">
@@ -118,12 +127,6 @@ const Index = () => {
           </div>
 
           <div className="text-center mt-16">
-            <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Link Your Instagram & Never Look Back
-            </h2>
-            <p className="text-xl text-gray-400 mb-16">
-              Automated But You Decide Offers!
-            </p>
             <p className="text-xl text-gray-400">
               What if they didn't post, we loose nothing
             </p>
