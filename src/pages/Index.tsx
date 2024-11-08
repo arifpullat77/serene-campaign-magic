@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { ArrowUp, Gift, ShoppingCart, TrendingUp, Cog, Wallet } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { ArrowUp, Gift, ShoppingCart, TrendingUp, Cog, Wallet } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 font-lexend">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-black to-[#020B1C] font-lexend">
       <Navbar />
       
       <main className="flex-grow">
@@ -34,7 +34,7 @@ const Index = () => {
         </section>
 
         {/* Process Section */}
-        <section className="py-20 bg-gray-900 text-white border-t border-primary-500">
+        <section className="py-20 text-white border-t border-[#2D7FF9]">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
               <div className="text-center">
@@ -83,7 +83,7 @@ const Index = () => {
         </section>
 
         {/* Meta Section */}
-        <section className="py-20 bg-gray-900 border-t border-primary-500">
+        <section className="py-20 border-t border-[#2D7FF9]">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold text-white mb-6">
               Meta has looted $2.7 billion, while Flipkart too $650 million from consumer brands

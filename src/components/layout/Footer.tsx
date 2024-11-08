@@ -2,7 +2,7 @@ import { Facebook, Instagram, Twitter } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-white border-t">
+    <footer className="bg-black border-t border-[#2D7FF9]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>

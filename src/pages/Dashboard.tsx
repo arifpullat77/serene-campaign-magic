@@ -23,7 +23,7 @@ const Dashboard = () => {
     <div className="container mx-auto p-6 space-y-6 animate-fade-up">
       {/* Header Section */}
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold gradient-text">Serenes Dashboard</h1>
+        <h1 className="text-3xl font-bold gradient-text lowercase">whiteboard</h1>
         <Button
           onClick={handleInstagramConnect}
           className={`${
@@ -42,7 +42,7 @@ const Dashboard = () => {
       {/* Mentions Tracking Section */}
       <Card className="bg-white/10 backdrop-blur-sm border-gray-800">
         <CardHeader>
-          <CardTitle>Customer Mentions</CardTitle>
+          <CardTitle className="lowercase">customer mentions</CardTitle>
         </CardHeader>
         <CardContent>
           <MentionsTable />
@@ -52,7 +52,7 @@ const Dashboard = () => {
       {/* Reward Tiers Section */}
       <Card className="bg-white/10 backdrop-blur-sm border-gray-800">
         <CardHeader>
-          <CardTitle>Reward Tiers</CardTitle>
+          <CardTitle className="lowercase">reward tiers</CardTitle>
         </CardHeader>
         <CardContent>
           <RewardTierEditor />
