@@ -33,6 +33,56 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Process Flow Images */}
+        <section className="py-20 relative border-t border-primary-500/30">
+          <div className="absolute inset-0 bg-[url('/hexagon-grid.png')] bg-repeat opacity-10"></div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="text-center space-y-4">
+                <h3 className="text-2xl font-bold text-white mb-2">your customer<br />POST & TAG<br />on Instagram</h3>
+                <div className="aspect-square bg-gradient-to-br from-primary-500/20 to-transparent p-1 rounded-lg">
+                  <img 
+                    src="/images/customer-posting.jpg" 
+                    alt="Customer posting on Instagram" 
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <p className="text-xl text-white font-semibold">
+                  Happy Customer<br />=<br />New Customers
+                </p>
+              </div>
+
+              <div className="text-center space-y-4">
+                <h3 className="text-2xl font-bold text-white mb-2">they get 2000<br />INR<br />coupon</h3>
+                <div className="aspect-square bg-gradient-to-br from-primary-500/20 to-transparent p-1 rounded-lg">
+                  <img 
+                    src="/images/happy-customer.jpg" 
+                    alt="Happy customer with reward" 
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <p className="text-xl text-white font-semibold">
+                  Happier Customer<br />=<br />More transaction
+                </p>
+              </div>
+
+              <div className="text-center space-y-4">
+                <h3 className="text-2xl font-bold text-white mb-2">Got brand<br />marketeer's without<br />paying cash</h3>
+                <div className="aspect-square bg-gradient-to-br from-primary-500/20 to-transparent p-1 rounded-lg">
+                  <img 
+                    src="/images/team-success.jpg" 
+                    alt="Team celebrating success" 
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <p className="text-xl text-white font-semibold">
+                  Free Branding<br />without cash outflow
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Process Section */}
         <section className="py-20 text-white border-t border-primary-500/30">
           <div className="container mx-auto px-4">
