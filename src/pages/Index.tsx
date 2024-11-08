@@ -8,7 +8,7 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-black to-[#020B1C] font-lexend">
+    <div className="min-h-screen flex flex-col bg-[#020314] font-lexend">
       <Navbar />
       
       <main className="flex-grow">
@@ -16,7 +16,7 @@ const Index = () => {
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-5xl font-bold mb-6 gradient-text lowercase">
+              <h1 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400 lowercase">
                 turn your customers into brand marketeers
               </h1>
               <p className="text-2xl text-gray-400 mb-8 lowercase">
@@ -25,7 +25,7 @@ const Index = () => {
               <Button 
                 size="lg" 
                 onClick={() => navigate("/login")} 
-                className="animate-fade-up"
+                className="animate-fade-up bg-primary-600 hover:bg-primary-700"
               >
                 Join Waitlist
               </Button>
@@ -34,7 +34,7 @@ const Index = () => {
         </section>
 
         {/* Process Section */}
-        <section className="py-20 text-white border-t border-[#2D7FF9]">
+        <section className="py-20 text-white border-t border-primary-500/30">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
               <div className="text-center">
@@ -83,7 +83,7 @@ const Index = () => {
         </section>
 
         {/* Meta Section */}
-        <section className="py-20 border-t border-[#2D7FF9]">
+        <section className="py-20 border-t border-primary-500/30">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold text-white mb-6">
               Meta has looted $2.7 billion, while Flipkart too $650 million from consumer brands
