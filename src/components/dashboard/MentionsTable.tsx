@@ -13,6 +13,7 @@ interface Mention {
   estimatedReach: number;
   uploadTime: string;
   couponEligible: string;
+  email: string | null;
   status: "Coupon Sent" | "Pending" | "Not Eligible";
 }
 
@@ -26,9 +27,9 @@ export const MentionsTable = () => {
       estimatedReach: 840,
       uploadTime: "2024-02-20T10:30:00",
       couponEligible: "500 INR",
+      email: "user1@example.com",
       status: "Coupon Sent",
     },
-    // ... Adding more samples
     {
       id: "2",
       instagramId: "@user2",
@@ -37,6 +38,7 @@ export const MentionsTable = () => {
       estimatedReach: 1750,
       uploadTime: "2024-02-20T11:15:00",
       couponEligible: "1000 INR",
+      email: null,
       status: "Pending",
     },
     {
@@ -47,9 +49,9 @@ export const MentionsTable = () => {
       estimatedReach: 70,
       uploadTime: "2024-02-20T12:00:00",
       couponEligible: "0 INR",
+      email: null,
       status: "Not Eligible",
     },
-    // ... Adding more samples up to 10
     {
       id: "10",
       instagramId: "@user10",
@@ -58,6 +60,7 @@ export const MentionsTable = () => {
       estimatedReach: 2450,
       uploadTime: "2024-02-20T19:30:00",
       couponEligible: "1000 INR",
+      email: null,
       status: "Pending",
     },
   ]);
@@ -69,6 +72,7 @@ export const MentionsTable = () => {
       'Estimated Reach': mention.estimatedReach,
       'Upload Time': new Date(mention.uploadTime).toLocaleString(),
       'Coupon Eligible': mention.couponEligible,
+      'Email': mention.email || 'Not Provided',
       'Status': mention.status
     })));
     
@@ -86,50 +90,52 @@ export const MentionsTable = () => {
         </Button>
       </div>
       <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Instagram ID</TableHead>
-          <TableHead>Followers</TableHead>
-          <TableHead>Estimated Reach</TableHead>
-          <TableHead>Upload Time</TableHead>
-          <TableHead>Coupon Eligible</TableHead>
-          <TableHead>Status</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {mentions.map((mention) => (
-          <TableRow key={mention.id}>
-            <TableCell>
-              <a
-                href={mention.profileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                {mention.instagramId}
-              </a>
-            </TableCell>
-            <TableCell>{mention.followers.toLocaleString()}</TableCell>
-            <TableCell>{mention.estimatedReach.toLocaleString()}</TableCell>
-            <TableCell>
-              {new Date(mention.uploadTime).toLocaleString()}
-            </TableCell>
-            <TableCell>{mention.couponEligible}</TableCell>
-            <TableCell>
-              <Badge
-                variant={mention.status === "Coupon Sent" ? "success" : "secondary"}
-                className={
-                  mention.status === "Coupon Sent"
-                    ? "bg-green-500 hover:bg-green-600"
-                    : ""
-                }
-              >
-                {mention.status}
-              </Badge>
-            </TableCell>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Instagram ID</TableHead>
+            <TableHead>Followers</TableHead>
+            <TableHead>Estimated Reach</TableHead>
+            <TableHead>Upload Time</TableHead>
+            <TableHead>Coupon Eligible</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Status</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
+        </TableHeader>
+        <TableBody>
+          {mentions.map((mention) => (
+            <TableRow key={mention.id}>
+              <TableCell>
+                <a
+                  href={mention.profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  {mention.instagramId}
+                </a>
+              </TableCell>
+              <TableCell>{mention.followers.toLocaleString()}</TableCell>
+              <TableCell>{mention.estimatedReach.toLocaleString()}</TableCell>
+              <TableCell>
+                {new Date(mention.uploadTime).toLocaleString()}
+              </TableCell>
+              <TableCell>{mention.couponEligible}</TableCell>
+              <TableCell>{mention.email || 'Not Provided'}</TableCell>
+              <TableCell>
+                <Badge
+                  variant={mention.status === "Coupon Sent" ? "success" : "secondary"}
+                  className={
+                    mention.status === "Coupon Sent"
+                      ? "bg-green-500 hover:bg-green-600"
+                      : ""
+                  }
+                >
+                  {mention.status}
+                </Badge>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
     </div>
   );
