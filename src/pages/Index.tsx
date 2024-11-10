@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { ArrowUp, Gift, ShoppingCart, TrendingUp, Cog, Wallet } from "lucide-react";
-import { Navbar } from "@/components/layout/Navbar";
+import { Navbar } from "@/components/layout/Navbar.tsx";
 import { Footer } from "@/components/layout/Footer";
 
 const Index = () => {
