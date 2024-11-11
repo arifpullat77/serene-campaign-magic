@@ -57,7 +57,7 @@ const Dashboard = () => {
       </Card>
 
       {/* Reward Tiers Section */}
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion type="single" collapsible className="w-full space-y-4">
         <AccordionItem value="rewards" className="border rounded-lg bg-white/10 backdrop-blur-sm">
           <AccordionTrigger className="px-6 py-4 hover:no-underline">
             <span className="text-lg font-semibold lowercase">reward tiers</span>
