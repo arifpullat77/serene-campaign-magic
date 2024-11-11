@@ -5,6 +5,7 @@ import { Instagram } from "lucide-react";
 import { RewardTierEditor } from "@/components/dashboard/RewardTierEditor";
 import { MentionsTable } from "@/components/dashboard/MentionsTable";
 import { Analytics } from "@/components/dashboard/Analytics";
+import { MessageTemplateEditor } from "@/components/dashboard/MessageTemplateEditor";
 import { useToast } from "@/hooks/use-toast";
 import {
   Accordion,
@@ -63,6 +64,16 @@ const Dashboard = () => {
           </AccordionTrigger>
           <AccordionContent className="px-6 pb-4">
             <RewardTierEditor />
+          </AccordionContent>
+        </AccordionItem>
+
+        {/* Message Templates Section */}
+        <AccordionItem value="messages" className="border rounded-lg bg-white/10 backdrop-blur-sm">
+          <AccordionTrigger className="px-6 py-4 hover:no-underline">
+            <span className="text-lg font-semibold lowercase">your messages to customer</span>
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4">
+            <MessageTemplateEditor />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
