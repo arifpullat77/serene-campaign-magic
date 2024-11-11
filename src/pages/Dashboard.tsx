@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Instagram } from "lucide-react";
 import { RewardTierEditor } from "@/components/dashboard/RewardTierEditor";
 import { MentionsTable } from "@/components/dashboard/MentionsTable";
@@ -45,18 +45,18 @@ const Dashboard = () => {
       {/* Analytics Section */}
       <Analytics />
 
-      <Accordion type="single" collapsible className="w-full space-y-4">
-        {/* Mentions Tracking Section */}
-        <AccordionItem value="mentions" className="border rounded-lg bg-white/10 backdrop-blur-sm">
-          <AccordionTrigger className="px-6 py-4 hover:no-underline">
-            <span className="text-lg font-semibold lowercase">customer mentions</span>
-          </AccordionTrigger>
-          <AccordionContent className="px-6 pb-4">
-            <MentionsTable />
-          </AccordionContent>
-        </AccordionItem>
+      {/* Mentions Tracking Section */}
+      <Card className="bg-white/10 backdrop-blur-sm border-gray-800">
+        <CardHeader>
+          <CardTitle className="lowercase">customer mentions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <MentionsTable />
+        </CardContent>
+      </Card>
 
-        {/* Reward Tiers Section */}
+      {/* Reward Tiers Section */}
+      <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="rewards" className="border rounded-lg bg-white/10 backdrop-blur-sm">
           <AccordionTrigger className="px-6 py-4 hover:no-underline">
             <span className="text-lg font-semibold lowercase">reward tiers</span>
