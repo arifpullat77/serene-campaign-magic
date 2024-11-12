@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { ArrowUp, Gift, ShoppingCart, TrendingUp, Cog, Wallet } from "lucide-react";
-import { Navbar } from "@/components/layout/Navbar.tsx";
 import { Footer } from "@/components/layout/Footer";
 
 const Index = () => {
@@ -9,8 +8,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#020314] font-lexend">
-      <Navbar />
-      
       {/* Hero Section */}
       <section className="py-32">
         <div className="container mx-auto px-6">
