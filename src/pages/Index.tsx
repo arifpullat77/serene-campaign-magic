@@ -37,7 +37,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-[url('/hexagon-grid.png')] bg-repeat opacity-10"></div>
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid md:grid-cols-3 gap-12 lg:gap-16">
-            <div className="text-center space-y-6">
+            <div className="text-center space-y-6 border-2 border-primary-500 rounded-xl p-6">
               <h3 className="text-2xl font-bold text-white mb-4 leading-relaxed">your customer<br />POST & TAG<br />on Instagram</h3>
               <div className="aspect-square bg-gradient-to-br from-primary-500/20 to-transparent p-1 rounded-lg">
                 <img 
@@ -51,7 +51,7 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="text-center space-y-6">
+            <div className="text-center space-y-6 border-2 border-primary-500 rounded-xl p-6">
               <h3 className="text-2xl font-bold text-white mb-4 leading-relaxed">they get 2000<br />INR<br />coupon</h3>
               <div className="aspect-square bg-gradient-to-br from-primary-500/20 to-transparent p-1 rounded-lg">
                 <img 
@@ -65,11 +65,11 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="text-center space-y-6">
+            <div className="text-center space-y-6 border-2 border-primary-500 rounded-xl p-6">
               <h3 className="text-2xl font-bold text-white mb-4 leading-relaxed">Got brand<br />marketeer's without<br />paying cash</h3>
               <div className="aspect-square bg-gradient-to-br from-primary-500/20 to-transparent p-1 rounded-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b" 
+                  src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81" 
                   alt="Team celebrating success" 
                   className="w-full h-full object-cover rounded-lg"
                 />
@@ -82,7 +82,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Process Section */}
       <section className="py-32 text-white border-t border-primary-500/30">
         <div className="container mx-auto px-6">
           <div className="text-center mb-24">
@@ -192,6 +191,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
       <Footer />
     </div>
   );
