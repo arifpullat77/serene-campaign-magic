@@ -7,6 +7,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const Index = () => {
   const navigate = useNavigate();
 
+  const handleWaitlistClick = () => {
+    window.location.href = "https://forms.zohopublic.in/arex/form/SerenesSAAS/formperma/npqMFzuMYUMxihDcxi7RINMAPoxgLPaCeYil7RGFww8";
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#020314] font-lexend">
       {/* Hero Section */}
@@ -21,7 +25,7 @@ const Index = () => {
             </p>
             <Button 
               size="lg" 
-              onClick={() => navigate("/login")} 
+              onClick={handleWaitlistClick}
               className="animate-fade-up bg-primary-600 hover:bg-primary-700"
             >
               Join Waitlist
