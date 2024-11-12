@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { ArrowUp, Gift, ShoppingCart, TrendingUp, Cog, Wallet } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -188,7 +189,70 @@ const Index = () => {
           </div>
         </div>
       </section>
-      
+
+      {/* FAQ Section */}
+      <section className="py-32 border-t border-primary-500/30">
+        <div className="container mx-auto px-6">
+          <Accordion type="single" collapsible className="w-full max-w-4xl mx-auto">
+            <AccordionItem value="marketing-costs" className="border-primary-500/30">
+              <AccordionTrigger className="text-2xl md:text-3xl font-bold text-white hover:text-primary-400">
+                How to cut marketing costs with more branding?
+              </AccordionTrigger>
+              <AccordionContent className="pt-8">
+                <div className="space-y-8">
+                  <h3 className="text-3xl font-bold text-white mb-8 text-center">
+                    Comparison - Serenes vs. Facebook Ads
+                  </h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full border-collapse">
+                      <thead>
+                        <tr className="bg-primary-500/10">
+                          <th className="p-4 text-left text-lg font-semibold text-yellow-300">Metric</th>
+                          <th className="p-4 text-left text-lg font-semibold text-primary-400">Serenes</th>
+                          <th className="p-4 text-left text-lg font-semibold text-gray-400">Facebook Ads</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-primary-500/30">
+                        <tr className="hover:bg-primary-500/5">
+                          <td className="p-4 text-yellow-300">Cost</td>
+                          <td className="p-4 text-white">Inventory cost (products/coupons)</td>
+                          <td className="p-4 text-gray-400">Direct cash outlay for ad spend</td>
+                        </tr>
+                        <tr className="hover:bg-primary-500/5">
+                          <td className="p-4 text-yellow-300">Authenticity</td>
+                          <td className="p-4 text-white">High - Real customers sharing genuine experiences</td>
+                          <td className="p-4 text-gray-400">Medium - Branded ads lack personal trust</td>
+                        </tr>
+                        <tr className="hover:bg-primary-500/5">
+                          <td className="p-4 text-yellow-300">Engagement Rate</td>
+                          <td className="p-4 text-white">5-15% (Organic user-generated content)</td>
+                          <td className="p-4 text-gray-400">0.5-3% (Click-Through Rate on Facebook)</td>
+                        </tr>
+                        <tr className="hover:bg-primary-500/5">
+                          <td className="p-4 text-yellow-300">Reach</td>
+                          <td className="p-4 text-white">Organic reach via customer networks</td>
+                          <td className="p-4 text-gray-400">Paid reach - Limited to ad budget</td>
+                        </tr>
+                        <tr className="hover:bg-primary-500/5">
+                          <td className="p-4 text-yellow-300">Organic Growth</td>
+                          <td className="p-4 text-white">Boost in Instagram followers & profile views</td>
+                          <td className="p-4 text-gray-400">Limited impact on follower growth</td>
+                        </tr>
+                        <tr className="hover:bg-primary-500/5">
+                          <td className="p-4 text-yellow-300">Brand Building</td>
+                          <td className="p-4 text-white">Strong - Built organically through genuine posts</td>
+                          <td className="p-4 text-gray-400">Moderate - Built through paid media</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
