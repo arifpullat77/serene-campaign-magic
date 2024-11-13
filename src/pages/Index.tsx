@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/home/HeroSection";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { BenefitsSection } from "@/components/home/BenefitsSection";
+import { FAQSection } from "@/components/home/FAQSection";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Index = () => {
       />
       <ProcessSection />
       <BenefitsSection />
+      <FAQSection />
       <Footer />
     </div>
   );
