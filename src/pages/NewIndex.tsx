@@ -154,3 +154,5 @@ const NewIndex = () => {
     </div>
   );
 };
+
+export default NewIndex;
