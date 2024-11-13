@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
-import NewIndex from "./pages/NewIndex";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import { Navbar } from "./components/layout/Navbar";
@@ -26,7 +25,6 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Index />} />
-      <Route path="/new" element={<NewIndex />} />
       <Route path="/login" element={<Login />} />
       <Route
         path="/dashboard"
