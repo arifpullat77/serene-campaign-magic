@@ -6,10 +6,6 @@ import { Footer } from "@/components/layout/Footer";
 const NewIndex = () => {
   const navigate = useNavigate();
 
-  const handleWaitlistClick = () => {
-    window.location.href = "https://forms.zohopublic.in/arex/form/SerenesSAAS/formperma/npqMFzuMYUMxihDcxi7RINMAPoxgLPaCeYil7RGFww8";
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0F172A] to-[#020314] font-lexend">
       {/* Hero Section */}
@@ -33,7 +29,7 @@ const NewIndex = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
               <Button 
                 size="lg" 
-                onClick={handleWaitlistClick}
+                onClick={() => window.location.href = "https://cutt.ly/beJsnsBc"}
                 className="bg-primary-600 hover:bg-primary-700 text-lg px-8"
               >
                 Join Waitlist
@@ -154,10 +150,7 @@ const NewIndex = () => {
           </div>
         </div>
       </section>
-
       <Footer />
     </div>
   );
 };
-
-export default NewIndex;

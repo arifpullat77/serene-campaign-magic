@@ -28,7 +28,7 @@ export const HeroSection = ({ onWaitlistClick, onPricingClick }: HeroSectionProp
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <Button 
               size="lg" 
-              onClick={onWaitlistClick}
+              onClick={() => window.location.href = "https://cutt.ly/beJsnsBc"}
               className="bg-primary-600 hover:bg-primary-700 text-lg px-8"
             >
               Join Waitlist
