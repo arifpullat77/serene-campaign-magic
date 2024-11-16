@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import * as XLSX from 'xlsx';
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface Mention {
   id: string;
@@ -12,12 +13,13 @@ interface Mention {
   followers: number;
   estimatedReach: number;
   uploadTime: string;
-  couponEligible: string;
+  couponEligible: number;
   email: string | null;
   status: "Coupon Sent" | "Pending" | "Not Eligible";
 }
 
 export const MentionsTable = () => {
+  const { currencySymbol } = useCurrency();
   const [mentions] = React.useState<Mention[]>([
     {
       id: "1",
@@ -26,7 +28,7 @@ export const MentionsTable = () => {
       followers: 1200,
       estimatedReach: 840,
       uploadTime: "2024-02-20T10:30:00",
-      couponEligible: "500 INR",
+      couponEligible: 500,
       email: "user1@example.com",
       status: "Coupon Sent",
     },
@@ -37,7 +39,7 @@ export const MentionsTable = () => {
       followers: 2500,
       estimatedReach: 1750,
       uploadTime: "2024-02-20T11:15:00",
-      couponEligible: "1000 INR",
+      couponEligible: 1000,
       email: null,
       status: "Pending",
     },
@@ -48,7 +50,7 @@ export const MentionsTable = () => {
       followers: 100,
       estimatedReach: 70,
       uploadTime: "2024-02-20T12:00:00",
-      couponEligible: "0 INR",
+      couponEligible: 0,
       email: null,
       status: "Not Eligible",
     },
@@ -59,7 +61,7 @@ export const MentionsTable = () => {
       followers: 3500,
       estimatedReach: 2450,
       uploadTime: "2024-02-20T19:30:00",
-      couponEligible: "1000 INR",
+      couponEligible: 1000,
       email: null,
       status: "Pending",
     },
@@ -71,7 +73,7 @@ export const MentionsTable = () => {
       'Followers': mention.followers,
       'Estimated Reach': mention.estimatedReach,
       'Upload Time': new Date(mention.uploadTime).toLocaleString(),
-      'Coupon Eligible': mention.couponEligible,
+      'Coupon Eligible': `${currencySymbol}${mention.couponEligible}`,
       'Email': mention.email || 'Not Provided',
       'Status': mention.status
     })));
@@ -119,7 +121,7 @@ export const MentionsTable = () => {
               <TableCell>
                 {new Date(mention.uploadTime).toLocaleString()}
               </TableCell>
-              <TableCell>{mention.couponEligible}</TableCell>
+              <TableCell>{currencySymbol}{mention.couponEligible}</TableCell>
               <TableCell>{mention.email || 'Not Provided'}</TableCell>
               <TableCell>
                 <Badge

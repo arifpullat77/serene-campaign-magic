@@ -3,6 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface RewardTier {
   id: number;
@@ -14,6 +16,7 @@ interface RewardTier {
 
 export const RewardTierEditor = () => {
   const { toast } = useToast();
+  const { currency, setCurrency, currencySymbol } = useCurrency();
   const [tiers, setTiers] = React.useState<RewardTier[]>([
     { id: 1, minFollowers: 0, maxFollowers: 999, amount: 300, couponCode: "" },
     { id: 2, minFollowers: 1000, maxFollowers: 1499, amount: 500, couponCode: "" },
@@ -25,6 +28,22 @@ export const RewardTierEditor = () => {
     setTiers(
       tiers.map((tier) =>
         tier.id === id ? { ...tier, amount: parseInt(value) || 0 } : tier
+      )
+    );
+  };
+
+  const handleMinFollowersChange = (id: number, value: string) => {
+    setTiers(
+      tiers.map((tier) =>
+        tier.id === id ? { ...tier, minFollowers: parseInt(value) || 0 } : tier
+      )
+    );
+  };
+
+  const handleMaxFollowersChange = (id: number, value: string) => {
+    setTiers(
+      tiers.map((tier) =>
+        tier.id === id ? { ...tier, maxFollowers: parseInt(value) || 0 } : tier
       )
     );
   };
@@ -46,19 +65,43 @@ export const RewardTierEditor = () => {
 
   return (
     <div className="space-y-4">
+      <div className="flex justify-end mb-4">
+        <Select value={currency} onValueChange={(value: 'INR' | 'USD' | 'EUR') => setCurrency(value)}>
+          <SelectTrigger className="w-32">
+            <SelectValue placeholder="Select currency" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="INR">INR (₹)</SelectItem>
+            <SelectItem value="USD">USD ($)</SelectItem>
+            <SelectItem value="EUR">EUR (€)</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Follower Range</TableHead>
-            <TableHead>Reward Amount (INR)</TableHead>
+            <TableHead>Reward Amount ({currency})</TableHead>
             <TableHead>Coupon Code</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {tiers.map((tier) => (
             <TableRow key={tier.id}>
-              <TableCell>
-                {tier.minFollowers.toLocaleString()} - {tier.maxFollowers.toLocaleString()}
+              <TableCell className="flex items-center gap-2">
+                <Input
+                  type="number"
+                  value={tier.minFollowers}
+                  onChange={(e) => handleMinFollowersChange(tier.id, e.target.value)}
+                  className="w-24"
+                />
+                <span>-</span>
+                <Input
+                  type="number"
+                  value={tier.maxFollowers}
+                  onChange={(e) => handleMaxFollowersChange(tier.id, e.target.value)}
+                  className="w-24"
+                />
               </TableCell>
               <TableCell>
                 <Input
