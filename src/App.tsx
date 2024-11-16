@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Pricing from "./pages/Pricing";
 import { Navbar } from "./components/layout/Navbar";
 import { useAuth } from "./contexts/AuthContext";
 
@@ -25,6 +26,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Index />} />
+      <Route path="/pricing" element={<Pricing />} />
       <Route path="/login" element={<Login />} />
       <Route
         path="/dashboard"

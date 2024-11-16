@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Rocket } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface HeroSectionProps {
   onWaitlistClick: () => void;
-  onPricingClick: () => void;
 }
 
-export const HeroSection = ({ onWaitlistClick, onPricingClick }: HeroSectionProps) => {
+export const HeroSection = ({ onWaitlistClick }: HeroSectionProps) => {
+  const navigate = useNavigate();
+  
   return (
     <section className="relative min-h-screen flex items-center">
       <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
@@ -28,7 +30,7 @@ export const HeroSection = ({ onWaitlistClick, onPricingClick }: HeroSectionProp
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <Button 
               size="lg" 
-              onClick={() => window.location.href = "https://cutt.ly/beJsnsBc"}
+              onClick={onWaitlistClick}
               className="bg-primary-600 hover:bg-primary-700 text-lg px-8"
             >
               Join Waitlist
@@ -36,7 +38,7 @@ export const HeroSection = ({ onWaitlistClick, onPricingClick }: HeroSectionProp
             <Button 
               size="lg" 
               variant="outline"
-              onClick={onPricingClick}
+              onClick={() => navigate("/pricing")}
               className="text-lg px-8"
             >
               View Pricing

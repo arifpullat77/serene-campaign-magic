@@ -18,10 +18,6 @@ export const Navbar = () => {
     navigate("/");
   };
 
-  const handleEmailClick = () => {
-    window.location.href = "mailto:arifpullat@serenes.life";
-  };
-
   return (
     <nav className="border-b bg-background">
       <div className="flex justify-between h-16 items-center container mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,13 +64,13 @@ export const Navbar = () => {
             </>
           ) : (
             <>
-              <Button variant="ghost" onClick={handleEmailClick}>
+              <Button variant="ghost" onClick={() => navigate("/pricing")}>
                 Pricing
               </Button>
-              <Button variant="ghost" onClick={handleEmailClick}>
+              <Button variant="ghost" onClick={() => navigate("/about")}>
                 About
               </Button>
-              <Button variant="ghost" onClick={handleEmailClick}>
+              <Button variant="ghost" onClick={() => navigate("/contact")}>
                 Contact
               </Button>
               <Button onClick={() => navigate("/login")}>Login</Button>
