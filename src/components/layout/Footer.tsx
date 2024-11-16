@@ -1,7 +1,7 @@
 import { Facebook, Instagram, Twitter, Mail } from "lucide-react";
 
 export const Footer = () => {
-  const contactEmail = "hello@serenes.ai";
+  const contactEmail = "arifpullat@serenes.life";
 
   return (
     <footer className="bg-black border-t border-[#2D7FF9]">

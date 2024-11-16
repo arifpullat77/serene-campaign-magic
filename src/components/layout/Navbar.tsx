@@ -12,7 +12,7 @@ import {
 export const Navbar = () => {
   const navigate = useNavigate();
   const { isLoggedIn, logout } = useAuth();
-  const contactEmail = "hello@serenes.ai";
+  const contactEmail = "arifpullat@serenes.life";
 
   const handleLogout = () => {
     logout();
