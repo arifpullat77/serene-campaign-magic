@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { LogOut, Menu } from "lucide-react";
+import { LogOut, Menu, Mail } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   DropdownMenu,
@@ -12,6 +12,7 @@ import {
 export const Navbar = () => {
   const navigate = useNavigate();
   const { isLoggedIn, logout } = useAuth();
+  const contactEmail = "hello@serenes.ai";
 
   const handleLogout = () => {
     logout();
@@ -70,7 +71,12 @@ export const Navbar = () => {
               <Button variant="ghost" onClick={() => navigate("/about")}>
                 About
               </Button>
-              <Button variant="ghost" onClick={() => navigate("/contact")}>
+              <Button 
+                variant="ghost" 
+                onClick={() => window.location.href = `mailto:${contactEmail}`}
+                className="inline-flex items-center gap-2"
+              >
+                <Mail className="h-4 w-4" />
                 Contact
               </Button>
               <Button onClick={() => navigate("/login")}>Login</Button>
