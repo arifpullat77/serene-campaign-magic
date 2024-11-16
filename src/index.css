@@ -50,3 +50,9 @@
 .gradient-text {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600;
 }
+
+@keyframes rainbow-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

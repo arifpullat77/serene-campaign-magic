@@ -29,21 +29,20 @@ export const HeroSection = ({ onWaitlistClick, onPricingClick }: HeroSectionProp
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-            <Button 
-              size="lg" 
-              onClick={onWaitlistClick}
-              className="bg-primary-600 hover:bg-primary-700 text-lg px-8"
+            <a 
+              href="https://forms.zohopublic.in/arex/form/SerenesSAAS/formperma/npqMFzuMYUMxihDcxi7RINMAPoxgLPaCeYil7RGFww8"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-8 py-3 text-lg font-medium text-white rounded-md bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 hover:opacity-90 transition-opacity"
             >
               Join Waitlist
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              onClick={onPricingClick}
-              className="text-lg px-8"
+            </a>
+            <a 
+              href="/pricing"
+              className="inline-block px-8 py-3 text-lg font-medium text-white rounded-md bg-gradient-to-r from-purple-500 via-blue-500 via-green-500 via-yellow-500 to-red-500 hover:opacity-90 transition-opacity"
             >
               View Pricing
-            </Button>
+            </a>
           </div>
         </div>
       </div>
