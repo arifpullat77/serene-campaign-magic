@@ -33,13 +33,21 @@ export const HeroSection = ({ onWaitlistClick, onPricingClick }: HeroSectionProp
               href="https://forms.zohopublic.in/arex/form/SerenesSAAS/formperma/npqMFzuMYUMxihDcxi7RINMAPoxgLPaCeYil7RGFww8"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-8 py-3 text-lg font-medium text-white rounded-md bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 hover:opacity-90 transition-opacity"
+              className="cursor-pointer inline-block px-8 py-3 text-lg font-medium text-black rounded-md bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 hover:opacity-90 transition-opacity"
+              onClick={(e) => {
+                e.preventDefault();
+                window.open("https://forms.zohopublic.in/arex/form/SerenesSAAS/formperma/npqMFzuMYUMxihDcxi7RINMAPoxgLPaCeYil7RGFww8", "_blank");
+              }}
             >
               Join Waitlist
             </a>
             <a 
               href="/pricing"
-              className="inline-block px-8 py-3 text-lg font-medium text-white rounded-md bg-gradient-to-r from-purple-500 via-blue-500 via-green-500 via-yellow-500 to-red-500 hover:opacity-90 transition-opacity"
+              className="cursor-pointer inline-block px-8 py-3 text-lg font-medium text-black rounded-md bg-gradient-to-r from-purple-500 via-blue-500 via-green-500 via-yellow-500 to-red-500 hover:opacity-90 transition-opacity"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/pricing");
+              }}
             >
               View Pricing
             </a>
