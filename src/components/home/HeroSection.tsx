@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 interface HeroSectionProps {
   onWaitlistClick: () => void;
+  onPricingClick: () => void;
 }
 
-export const HeroSection = ({ onWaitlistClick }: HeroSectionProps) => {
+export const HeroSection = ({ onWaitlistClick, onPricingClick }: HeroSectionProps) => {
   const navigate = useNavigate();
   
   return (
@@ -38,7 +39,7 @@ export const HeroSection = ({ onWaitlistClick }: HeroSectionProps) => {
             <Button 
               size="lg" 
               variant="outline"
-              onClick={() => navigate("/pricing")}
+              onClick={onPricingClick}
               className="text-lg px-8"
             >
               View Pricing
