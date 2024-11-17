@@ -6,7 +6,7 @@ export const HeroSection = () => {
   const navigate = useNavigate();
   
   const handleWaitlistClick = () => {
-    window.location.href = "https://forms.zohopublic.in/arex/form/SerenesSAAS/formperma/npqMFzuMYUMxihDcxi7RINMAPoxgLPaCeYil7RGFww8";
+    window.location.href = "https://cutt.ly/beJsnsBc";
   };
 
   return (
@@ -29,14 +29,12 @@ export const HeroSection = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <Button
-              variant="default"
               onClick={handleWaitlistClick}
               className="px-8 py-6 text-lg font-medium text-white rounded-md bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 hover:opacity-90 transition-opacity"
             >
               Join Waitlist
             </Button>
             <Button
-              variant="default"
               onClick={() => navigate("/pricing")}
               className="px-8 py-6 text-lg font-medium text-white rounded-md bg-gradient-to-r from-purple-500 via-blue-500 via-green-500 via-yellow-500 to-red-500 hover:opacity-90 transition-opacity"
             >
