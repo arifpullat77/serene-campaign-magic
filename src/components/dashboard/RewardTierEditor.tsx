@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { Link } from "react-router-dom";
 
 interface RewardTier {
   id: number;
@@ -65,7 +66,13 @@ export const RewardTierEditor = () => {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-between items-center mb-4">
+        <Link 
+          to="/calculator"
+          className="text-primary hover:underline text-sm"
+        >
+          Calculate how much you can offer for breakeven sale
+        </Link>
         <Select value={currency} onValueChange={(value: 'INR' | 'USD' | 'EUR') => setCurrency(value)}>
           <SelectTrigger className="w-32">
             <SelectValue placeholder="Select currency" />
