@@ -2,22 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Rocket } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-interface HeroSectionProps {
-  onWaitlistClick: () => void;
-  onPricingClick: () => void;
-}
-
-export const HeroSection = ({ onWaitlistClick, onPricingClick }: HeroSectionProps) => {
+export const HeroSection = () => {
   const navigate = useNavigate();
   
   const handleWaitlistClick = () => {
-    window.open("https://forms.zohopublic.in/arex/form/SerenesSAAS/formperma/npqMFzuMYUMxihDcxi7RINMAPoxgLPaCeYil7RGFww8", "_blank");
+    window.location.href = "https://forms.zohopublic.in/arex/form/SerenesSAAS/formperma/npqMFzuMYUMxihDcxi7RINMAPoxgLPaCeYil7RGFww8";
   };
 
-  const handlePricingClick = () => {
-    navigate("/pricing");
-  };
-  
   return (
     <section className="relative min-h-screen flex items-center">
       <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
@@ -38,14 +29,16 @@ export const HeroSection = ({ onWaitlistClick, onPricingClick }: HeroSectionProp
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <Button
+              variant="default"
               onClick={handleWaitlistClick}
-              className="px-8 py-6 text-lg font-medium text-black rounded-md bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 hover:opacity-90 transition-opacity"
+              className="px-8 py-6 text-lg font-medium text-white rounded-md bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 hover:opacity-90 transition-opacity"
             >
               Join Waitlist
             </Button>
             <Button
-              onClick={handlePricingClick}
-              className="px-8 py-6 text-lg font-medium text-black rounded-md bg-gradient-to-r from-purple-500 via-blue-500 via-green-500 via-yellow-500 to-red-500 hover:opacity-90 transition-opacity"
+              variant="default"
+              onClick={() => navigate("/pricing")}
+              className="px-8 py-6 text-lg font-medium text-white rounded-md bg-gradient-to-r from-purple-500 via-blue-500 via-green-500 via-yellow-500 to-red-500 hover:opacity-90 transition-opacity"
             >
               View Pricing
             </Button>
