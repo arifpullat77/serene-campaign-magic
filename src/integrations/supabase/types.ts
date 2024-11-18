@@ -11,6 +11,7 @@ export type Database = {
     Tables: {
       mentions: {
         Row: {
+          conversation_state: string | null
           coupon_eligible: number
           created_at: string
           email: string | null
@@ -18,12 +19,14 @@ export type Database = {
           followers: number
           id: string
           instagram_id: string
+          last_message_sent: string | null
           profile_id: string
           profile_url: string
           status: string
           upload_time: string
         }
         Insert: {
+          conversation_state?: string | null
           coupon_eligible: number
           created_at?: string
           email?: string | null
@@ -31,12 +34,14 @@ export type Database = {
           followers: number
           id?: string
           instagram_id: string
+          last_message_sent?: string | null
           profile_id: string
           profile_url: string
           status: string
           upload_time: string
         }
         Update: {
+          conversation_state?: string | null
           coupon_eligible?: number
           created_at?: string
           email?: string | null
@@ -44,6 +49,7 @@ export type Database = {
           followers?: number
           id?: string
           instagram_id?: string
+          last_message_sent?: string | null
           profile_id?: string
           profile_url?: string
           status?: string
@@ -102,7 +108,10 @@ export type Database = {
           designation: string
           full_name: string
           id: string
+          instagram_access_token: string | null
+          instagram_business_id: string | null
           instagram_connected: boolean | null
+          instagram_username: string | null
           updated_at: string
         }
         Insert: {
@@ -112,7 +121,10 @@ export type Database = {
           designation: string
           full_name: string
           id: string
+          instagram_access_token?: string | null
+          instagram_business_id?: string | null
           instagram_connected?: boolean | null
+          instagram_username?: string | null
           updated_at?: string
         }
         Update: {
@@ -122,7 +134,10 @@ export type Database = {
           designation?: string
           full_name?: string
           id?: string
+          instagram_access_token?: string | null
+          instagram_business_id?: string | null
           instagram_connected?: boolean | null
+          instagram_username?: string | null
           updated_at?: string
         }
         Relationships: []
