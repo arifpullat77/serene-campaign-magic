@@ -25,7 +25,7 @@ export const HeroSection = () => {
                   size="lg"
                   className="min-w-[160px] bg-primary-600 hover:bg-primary-700 text-white font-semibold"
                 >
-                  Get Started
+                  get started
                 </Button>
               </div>
             </div>
@@ -33,7 +33,7 @@ export const HeroSection = () => {
           <div className="w-full md:w-1/2 p-8">
             <div className="md:max-w-lg">
               <h2 className="mb-6 text-3xl font-bold tracking-tight">
-                Join Us Today
+                join us today
               </h2>
               <p className="text-lg text-gray-300 font-medium">
                 Sign up now and start benefitting from our service, it's fast, easy, and effective.
@@ -43,7 +43,7 @@ export const HeroSection = () => {
                 size="lg"
                 className="mt-4 bg-secondary-600 hover:bg-secondary-700 text-white font-semibold"
               >
-                Learn More
+                learn more
               </Button>
             </div>
           </div>
