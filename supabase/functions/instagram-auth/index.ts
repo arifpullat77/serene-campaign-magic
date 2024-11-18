@@ -1,13 +1,10 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
-
-const INSTAGRAM_CLIENT_ID = Deno.env.get('INSTAGRAM_CLIENT_ID')
-const INSTAGRAM_CLIENT_SECRET = Deno.env.get('INSTAGRAM_CLIENT_SECRET')
-const REDIRECT_URI = 'http://localhost:5173/dashboard'
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -28,10 +25,10 @@ serve(async (req) => {
     const tokenResponse = await fetch('https://api.instagram.com/oauth/access_token', {
       method: 'POST',
       body: new URLSearchParams({
-        client_id: INSTAGRAM_CLIENT_ID!,
-        client_secret: INSTAGRAM_CLIENT_SECRET!,
+        client_id: Deno.env.get('INSTAGRAM_CLIENT_ID')!,
+        client_secret: Deno.env.get('INSTAGRAM_CLIENT_SECRET')!,
         grant_type: 'authorization_code',
-        redirect_uri: REDIRECT_URI,
+        redirect_uri: 'http://localhost:5173/dashboard',
         code,
       })
     })

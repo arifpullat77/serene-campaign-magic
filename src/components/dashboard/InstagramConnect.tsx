@@ -4,7 +4,7 @@ import { Instagram } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
-const INSTAGRAM_CLIENT_ID = "528808453359215"; // From your screenshot
+const INSTAGRAM_CLIENT_ID = "528808453359215";
 const REDIRECT_URI = "http://localhost:5173/dashboard";
 
 export const InstagramConnect = () => {
@@ -70,6 +70,7 @@ export const InstagramConnect = () => {
           // Clean up URL
           window.history.replaceState({}, document.title, window.location.pathname);
         } catch (error: any) {
+          console.error('Instagram connection error:', error);
           toast({
             title: "Error",
             description: error.message,
