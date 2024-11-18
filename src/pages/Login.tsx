@@ -1,17 +1,11 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { SignupForm } from "@/components/auth/SignupForm";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -20,43 +14,10 @@ const Login = () => {
   const [fullName, setFullName] = useState("");
   const [companyUrl, setCompanyUrl] = useState("");
   const [designation, setDesignation] = useState("");
-  const navigate = useNavigate();
   const { toast } = useToast();
-
-  useEffect(() => {
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN') {
-        toast({
-          title: "Success",
-          description: "You have been successfully logged in!",
-        });
-        navigate('/dashboard');
-      } else if (event === 'SIGNED_OUT') {
-        navigate('/login');
-      } else if (event === 'USER_UPDATED') {
-        // This event is triggered when email is verified
-        toast({
-          title: "Email Verified",
-          description: "Your email has been verified. You can now log in.",
-        });
-        navigate('/login');
-      }
-    });
-
-    // Check for email verification status from URL
-    const hash = window.location.hash;
-    if (hash && hash.includes('type=email_verification')) {
-      toast({
-        title: "Verification Success",
-        description: "Your email has been verified. Please log in.",
-      });
-    }
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [navigate, toast]);
+  
+  // Use the auth redirect hook
+  useAuthRedirect();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,7 +61,6 @@ const Login = () => {
           });
           return;
         }
-        navigate("/dashboard");
       }
     } catch (error: any) {
       toast({
@@ -121,77 +81,44 @@ const Login = () => {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
-                Email
-              </label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+            {isSignUp ? (
+              <SignupForm
+                email={email}
+                setEmail={setEmail}
+                password={password}
+                setPassword={setPassword}
+                fullName={fullName}
+                setFullName={setFullName}
+                companyUrl={companyUrl}
+                setCompanyUrl={setCompanyUrl}
+                designation={designation}
+                setDesignation={setDesignation}
               />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium">
-                Password
-              </label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            {isSignUp && (
+            ) : (
               <>
                 <div className="space-y-2">
-                  <label htmlFor="fullName" className="text-sm font-medium">
-                    Full Name
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email
                   </label>
                   <Input
-                    id="fullName"
-                    type="text"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="companyUrl" className="text-sm font-medium">
-                    Company URL
+                  <label htmlFor="password" className="text-sm font-medium">
+                    Password
                   </label>
                   <Input
-                    id="companyUrl"
-                    type="url"
-                    value={companyUrl}
-                    onChange={(e) => setCompanyUrl(e.target.value)}
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="designation" className="text-sm font-medium">
-                    Designation
-                  </label>
-                  <Select
-                    value={designation}
-                    onValueChange={(value) => setDesignation(value)}
-                    required
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your role" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Founder">Founder</SelectItem>
-                      <SelectItem value="Marketer">Marketer</SelectItem>
-                      <SelectItem value="Social Media Manager">
-                        Social Media Manager
-                      </SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
                 </div>
               </>
             )}
