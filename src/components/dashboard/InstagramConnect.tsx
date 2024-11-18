@@ -14,17 +14,23 @@ export const InstagramConnect = () => {
 
   useEffect(() => {
     const loadInstagramStatus = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
 
-      const { data } = await supabase
-        .from('profiles')
-        .select('instagram_connected')
-        .eq('id', user.id)
-        .single();
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('instagram_connected, instagram_access_token')
+          .eq('id', user.id)
+          .single();
 
-      if (data) {
-        setIsConnected(data.instagram_connected || false);
+        if (error) throw error;
+        
+        // Only set as connected if we have both the flag and a valid token
+        setIsConnected(data?.instagram_connected && !!data?.instagram_access_token);
+      } catch (error) {
+        console.error('Error loading Instagram status:', error);
+        setIsConnected(false);
       }
     };
 
@@ -71,6 +77,7 @@ export const InstagramConnect = () => {
           window.history.replaceState({}, document.title, window.location.pathname);
         } catch (error: any) {
           console.error('Instagram connection error:', error);
+          setIsConnected(false);
           toast({
             title: "Error",
             description: error.message,
@@ -90,17 +97,49 @@ export const InstagramConnect = () => {
     window.location.href = authUrl;
   };
 
+  const handleDisconnect = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("User not authenticated");
+
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          instagram_connected: false,
+          instagram_access_token: null,
+          instagram_business_id: null,
+          instagram_username: null
+        })
+        .eq('id', user.id);
+
+      if (error) throw error;
+
+      setIsConnected(false);
+      toast({
+        title: "Success",
+        description: "Instagram account disconnected successfully",
+      });
+    } catch (error: any) {
+      console.error('Error disconnecting Instagram:', error);
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <Button
-      onClick={handleInstagramConnect}
-      disabled={isConnecting || isConnected}
+      onClick={isConnected ? handleDisconnect : handleInstagramConnect}
+      disabled={isConnecting}
       className="gap-2"
     >
       <Instagram className="w-4 h-4" />
       {isConnecting 
         ? "Connecting..." 
         : isConnected 
-        ? "Instagram Connected"
+        ? "Disconnect Instagram"
         : "Connect Instagram Account"}
     </Button>
   );
