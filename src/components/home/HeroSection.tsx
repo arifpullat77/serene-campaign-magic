@@ -8,7 +8,7 @@ export const HeroSection = () => {
   const { isLoggedIn } = useAuth();
   
   const handleWaitlistClick = () => {
-    window.open("https://cutt.ly/beJsnsBc", "_blank");
+    window.open("https://cutt.ly/beJsnsBc", "_blank", "noopener,noreferrer");
   };
 
   return (
