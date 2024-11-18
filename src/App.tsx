@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Pricing from "./pages/Pricing";
 import RewardsCalculator from "./pages/RewardsCalculator";
 import { Navbar } from "./components/layout/Navbar";
@@ -28,6 +29,7 @@ const AppRoutes = () => {
       <Route path="/" element={<Index />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/calculator" element={<RewardsCalculator />} />
       <Route
         path="/dashboard"
