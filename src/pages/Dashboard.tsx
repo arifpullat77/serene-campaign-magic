@@ -5,6 +5,7 @@ import { Analytics } from "@/components/dashboard/Analytics";
 import { MessageTemplateEditor } from "@/components/dashboard/MessageTemplateEditor";
 import { InstagramConnect } from "@/components/dashboard/InstagramConnect";
 import { CampaignControl } from "@/components/dashboard/CampaignControl";
+import { RewardTierEditor } from "@/components/dashboard/RewardTierEditor";
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import {
   Accordion,
@@ -36,6 +37,16 @@ const Dashboard = () => {
           </CardHeader>
           <CardContent>
             <MentionsTable />
+          </CardContent>
+        </Card>
+
+        {/* Reward Tiers Section */}
+        <Card className="bg-white/10 backdrop-blur-sm border-gray-800">
+          <CardHeader>
+            <CardTitle className="lowercase">reward tiers</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <RewardTierEditor />
           </CardContent>
         </Card>
 
