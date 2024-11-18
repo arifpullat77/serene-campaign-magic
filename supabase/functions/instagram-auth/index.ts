@@ -7,7 +7,6 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
@@ -21,14 +20,13 @@ serve(async (req) => {
 
     console.log('Exchanging code for access token...')
 
-    // Exchange code for access token
     const tokenResponse = await fetch('https://api.instagram.com/oauth/access_token', {
       method: 'POST',
       body: new URLSearchParams({
         client_id: Deno.env.get('INSTAGRAM_CLIENT_ID')!,
         client_secret: Deno.env.get('INSTAGRAM_CLIENT_SECRET')!,
         grant_type: 'authorization_code',
-        redirect_uri: 'http://localhost:5173/dashboard',
+        redirect_uri: 'https://localhost:5173/auth/callback',
         code,
       })
     })

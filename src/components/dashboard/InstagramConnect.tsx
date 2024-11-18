@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const INSTAGRAM_CLIENT_ID = "528808453359215";
-const REDIRECT_URI = "https://localhost:5173/dashboard"; // Changed to https:// to match Instagram app settings
+const REDIRECT_URI = "https://localhost:5173/auth/callback"; // Updated to a more standard OAuth callback URL
 
 export const InstagramConnect = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -98,15 +98,15 @@ export const InstagramConnect = () => {
     ].join(',');
 
     const params = new URLSearchParams({
-      enable_fb_login: '0',
-      force_authentication: '1',
       client_id: INSTAGRAM_CLIENT_ID,
       redirect_uri: REDIRECT_URI,
+      scope: scopes,
       response_type: 'code',
-      scope: scopes
+      enable_fb_login: '0',
+      force_authentication: '1'
     });
 
-    const authUrl = `https://www.instagram.com/oauth/authorize?${params.toString()}`;
+    const authUrl = `https://api.instagram.com/oauth/authorize?${params.toString()}`;
     window.location.href = authUrl;
   };
 
