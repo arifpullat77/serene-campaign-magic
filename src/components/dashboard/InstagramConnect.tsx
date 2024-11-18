@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const INSTAGRAM_CLIENT_ID = "528808453359215";
-const REDIRECT_URI = encodeURIComponent("https://localhost:5173/dashboard");
+const REDIRECT_URI = "https://localhost:5173/dashboard"; // Remove encoding here as it will be encoded in the URL construction
 
 export const InstagramConnect = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -90,7 +90,23 @@ export const InstagramConnect = () => {
   }, [toast]);
 
   const handleInstagramConnect = () => {
-    const authUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=instagram_business_basic,instagram_business_manage_messages,instagram_business_manage_comments,instagram_business_content_publish`;
+    const scopes = [
+      'instagram_business_basic',
+      'instagram_business_manage_messages',
+      'instagram_business_manage_comments',
+      'instagram_business_content_publish'
+    ].join(',');
+
+    const params = new URLSearchParams({
+      enable_fb_login: '0',
+      force_authentication: '1',
+      client_id: INSTAGRAM_CLIENT_ID,
+      redirect_uri: REDIRECT_URI,
+      response_type: 'code',
+      scope: scopes
+    });
+
+    const authUrl = `https://www.instagram.com/oauth/authorize?${params.toString()}`;
     window.location.href = authUrl;
   };
 
