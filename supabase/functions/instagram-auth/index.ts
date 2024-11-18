@@ -7,25 +7,19 @@ const corsHeaders = {
 
 const INSTAGRAM_CLIENT_ID = Deno.env.get('INSTAGRAM_CLIENT_ID')
 const INSTAGRAM_CLIENT_SECRET = Deno.env.get('INSTAGRAM_CLIENT_SECRET')
-const SUPABASE_URL = Deno.env.get('SUPABASE_URL')
-const SUPABASE_ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY')
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-
-const supabase = createClient(
-  SUPABASE_URL!,
-  SUPABASE_SERVICE_ROLE_KEY!
-)
+const REDIRECT_URI = 'http://localhost:5173/dashboard'
 
 Deno.serve(async (req) => {
+  // Handle CORS
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
 
   try {
-    const { code, user_id } = await req.json()
+    const { code } = await req.json()
     
-    if (!code || !user_id) {
-      throw new Error('Missing required parameters')
+    if (!code) {
+      throw new Error('No authorization code provided')
     }
 
     // Exchange code for access token
@@ -36,37 +30,30 @@ Deno.serve(async (req) => {
         client_secret: INSTAGRAM_CLIENT_SECRET!,
         grant_type: 'authorization_code',
         code,
-        redirect_uri: 'http://localhost:5173/dashboard'
+        redirect_uri: REDIRECT_URI
       })
     })
 
-    const { access_token, user_id: instagram_user_id } = await tokenResponse.json()
+    const { access_token, user_id } = await tokenResponse.json()
 
-    // Get Instagram business account details
+    // Get user details
     const userResponse = await fetch(
       `https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`
     )
-    const { username } = await userResponse.json()
-
-    // Update user profile with Instagram credentials
-    const { error } = await supabase
-      .from('profiles')
-      .update({
-        instagram_access_token: access_token,
-        instagram_business_id: instagram_user_id,
-        instagram_username: username,
-        instagram_connected: true
-      })
-      .eq('id', user_id)
-
-    if (error) throw error
+    const userData = await userResponse.json()
 
     return new Response(
-      JSON.stringify({ success: true }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      JSON.stringify({ 
+        access_token,
+        user_id,
+        username: userData.username
+      }),
+      { 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      }
     )
   } catch (error) {
-    console.error('Error:', error.message)
+    console.error('Error:', error)
     return new Response(
       JSON.stringify({ error: error.message }),
       { 
