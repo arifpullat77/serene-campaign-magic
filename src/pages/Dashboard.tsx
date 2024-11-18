@@ -41,14 +41,16 @@ const Dashboard = () => {
         </Card>
 
         {/* Reward Tiers Section */}
-        <Card className="bg-white/10 backdrop-blur-sm border-gray-800">
-          <CardHeader>
-            <CardTitle className="lowercase">reward tiers</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <RewardTierEditor />
-          </CardContent>
-        </Card>
+        <Accordion type="single" collapsible className="w-full space-y-4">
+          <AccordionItem value="rewards" className="border rounded-lg bg-white/10 backdrop-blur-sm">
+            <AccordionTrigger className="px-6 py-4 hover:no-underline">
+              <span className="text-lg font-semibold lowercase">reward tiers</span>
+            </AccordionTrigger>
+            <AccordionContent className="px-6 pb-4">
+              <RewardTierEditor />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         {/* Message Templates Section */}
         <Accordion type="single" collapsible className="w-full space-y-4">
