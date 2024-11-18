@@ -19,10 +19,9 @@ export const useAuthRedirect = () => {
         navigate('/login');
       } else if (event === 'USER_UPDATED') {
         toast({
-          title: "Email Verified",
-          description: "Your email has been verified. You can now log in.",
+          title: "Success",
+          description: "Your profile has been updated.",
         });
-        navigate('/login');
       }
     });
 
@@ -33,6 +32,7 @@ export const useAuthRedirect = () => {
         title: "Verification Success",
         description: "Your email has been verified. Please log in.",
       });
+      navigate('/login');
     }
 
     return () => {

@@ -6,6 +6,8 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { SignupForm } from "@/components/auth/SignupForm";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -15,8 +17,9 @@ const Login = () => {
   const [companyUrl, setCompanyUrl] = useState("");
   const [designation, setDesignation] = useState("");
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const { login } = useAuth();
   
-  // Use the auth redirect hook
   useAuthRedirect();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,18 +52,12 @@ const Login = () => {
           description: "We've sent you a verification link.",
         });
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
+        await login(email, password);
+        toast({
+          title: "Success",
+          description: "You have been successfully logged in!",
         });
-        if (error) {
-          toast({
-            title: "Error",
-            description: error.message,
-            variant: "destructive",
-          });
-          return;
-        }
+        navigate("/dashboard");
       }
     } catch (error: any) {
       toast({
