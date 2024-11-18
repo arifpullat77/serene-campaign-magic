@@ -40,10 +40,10 @@ export const Navbar = () => {
           {isLoggedIn ? (
             <>
               <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                dashboard
+                Dashboard
               </Button>
               <Button variant="ghost" onClick={() => navigate("/calculator")}>
-                reward calculator
+                Reward Calculator
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -57,7 +57,7 @@ export const Navbar = () => {
                     className="text-destructive"
                   >
                     <LogOut className="mr-2 h-4 w-4" />
-                    logout
+                    Logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -65,13 +65,13 @@ export const Navbar = () => {
           ) : (
             <>
               <Button variant="ghost" onClick={() => navigate("/pricing")}>
-                pricing
+                Pricing
               </Button>
               <Button 
                 variant="ghost" 
                 onClick={handleWaitlistClick}
               >
-                join waitlist
+                Join Waitlist
               </Button>
               <Button 
                 variant="ghost" 
@@ -79,14 +79,14 @@ export const Navbar = () => {
                 className="inline-flex items-center gap-2"
               >
                 <Mail className="h-4 w-4" />
-                contact
+                Contact
               </Button>
               <Button 
                 variant="default"
                 onClick={() => navigate("/login")}
                 className="bg-primary-600 hover:bg-primary-700"
               >
-                login
+                Login
               </Button>
             </>
           )}
