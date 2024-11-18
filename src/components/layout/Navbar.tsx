@@ -32,7 +32,7 @@ export const Navbar = () => {
             className="text-2xl font-bold text-primary-600 cursor-pointer"
             onClick={() => navigate("/")}
           >
-            Serenes
+            serenes
           </span>
         </div>
 
@@ -40,10 +40,10 @@ export const Navbar = () => {
           {isLoggedIn ? (
             <>
               <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Dashboard
+                dashboard
               </Button>
               <Button variant="ghost" onClick={() => navigate("/calculator")}>
-                Reward Calculator
+                reward calculator
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -57,7 +57,7 @@ export const Navbar = () => {
                     className="text-destructive"
                   >
                     <LogOut className="mr-2 h-4 w-4" />
-                    Logout
+                    logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -65,13 +65,13 @@ export const Navbar = () => {
           ) : (
             <>
               <Button variant="ghost" onClick={() => navigate("/pricing")}>
-                Pricing
+                pricing
               </Button>
               <Button 
                 variant="ghost" 
                 onClick={handleWaitlistClick}
               >
-                Join Waitlist
+                join waitlist
               </Button>
               <Button 
                 variant="ghost" 
@@ -79,14 +79,14 @@ export const Navbar = () => {
                 className="inline-flex items-center gap-2"
               >
                 <Mail className="h-4 w-4" />
-                Contact
+                contact
               </Button>
               <Button 
                 variant="default"
                 onClick={() => navigate("/login")}
                 className="bg-primary-600 hover:bg-primary-700"
               >
-                Login
+                login
               </Button>
             </>
           )}

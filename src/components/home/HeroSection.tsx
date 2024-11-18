@@ -1,37 +1,51 @@
 import { Button } from "@/components/ui/button";
-import { Rocket } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
   const navigate = useNavigate();
-  
+
   return (
-    <section className="relative min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
-      
-      <div className="container mx-auto px-6 py-32">
-        <div className="max-w-5xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 mb-6">
-            <Rocket className="w-4 h-4 text-primary-400" />
-            <span className="text-sm text-primary-400">automated instagram marketing</span>
+    <section className="relative py-20 overflow-hidden">
+      <div className="container px-4 mx-auto">
+        <div className="flex flex-wrap items-center -m-8">
+          <div className="w-full md:w-1/2 p-8">
+            <div className="md:max-w-lg">
+              <h1 className="mb-6 text-4xl md:text-5xl font-bold font-heading tracking-tight">
+                Automate{" "}
+                <span className="gradient-text">Instagram Mentions</span>{" "}
+                Rewards
+              </h1>
+              <p className="text-lg text-gray-300 font-medium">
+                automate rewards for instagram mentions. save marketing costs. grow organically.
+              </p>
+          
+              <div className="flex justify-center pt-4">
+                <Button
+                  onClick={() => navigate("/login")}
+                  size="lg"
+                  className="min-w-[160px] bg-primary-600 hover:bg-primary-700 text-white font-semibold"
+                >
+                  get started
+                </Button>
+              </div>
+            </div>
           </div>
-          
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
-            turn your <span className="gradient-text">customers</span> into your best <span className="gradient-text">marketers</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto">
-            automate rewards for instagram mentions. save marketing costs. grow organically.
-          </p>
-          
-          <div className="flex justify-center pt-4">
-            <Button
-              onClick={() => navigate("/login")}
-              size="lg"
-              className="min-w-[160px] bg-primary-600 hover:bg-primary-700 text-white font-semibold"
-            >
-              Get Started
-            </Button>
+          <div className="w-full md:w-1/2 p-8">
+            <div className="md:max-w-lg">
+              <h2 className="mb-6 text-3xl font-bold tracking-tight">
+                join us today
+              </h2>
+              <p className="text-lg text-gray-300 font-medium">
+                Sign up now and start benefitting from our service, it's fast, easy, and effective.
+              </p>
+              <Button
+                onClick={() => navigate("/pricing")}
+                size="lg"
+                className="mt-4 bg-secondary-600 hover:bg-secondary-700 text-white font-semibold"
+              >
+                learn more
+              </Button>
+            </div>
           </div>
         </div>
       </div>
