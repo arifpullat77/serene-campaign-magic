@@ -9,7 +9,124 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      mentions: {
+        Row: {
+          coupon_eligible: number
+          created_at: string
+          email: string | null
+          estimated_reach: number
+          followers: number
+          id: string
+          instagram_id: string
+          profile_id: string
+          profile_url: string
+          status: string
+          upload_time: string
+        }
+        Insert: {
+          coupon_eligible: number
+          created_at?: string
+          email?: string | null
+          estimated_reach: number
+          followers: number
+          id?: string
+          instagram_id: string
+          profile_id: string
+          profile_url: string
+          status: string
+          upload_time: string
+        }
+        Update: {
+          coupon_eligible?: number
+          created_at?: string
+          email?: string | null
+          estimated_reach?: number
+          followers?: number
+          id?: string
+          instagram_id?: string
+          profile_id?: string
+          profile_url?: string
+          status?: string
+          upload_time?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mentions_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      message_templates: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          profile_id: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          profile_id: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          profile_id?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_templates_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          campaign_active: boolean | null
+          company_url: string
+          created_at: string
+          designation: string
+          full_name: string
+          id: string
+          instagram_connected: boolean | null
+          updated_at: string
+        }
+        Insert: {
+          campaign_active?: boolean | null
+          company_url: string
+          created_at?: string
+          designation: string
+          full_name: string
+          id: string
+          instagram_connected?: boolean | null
+          updated_at?: string
+        }
+        Update: {
+          campaign_active?: boolean | null
+          company_url?: string
+          created_at?: string
+          designation?: string
+          full_name?: string
+          id?: string
+          instagram_connected?: boolean | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

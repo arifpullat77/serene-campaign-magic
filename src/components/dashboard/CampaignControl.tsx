@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Play, Pause } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -9,16 +9,37 @@ export const CampaignControl = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
+  useEffect(() => {
+    const loadCampaignStatus = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data } = await supabase
+        .from('profiles')
+        .select('campaign_active')
+        .eq('id', user.id)
+        .single();
+
+      if (data) {
+        setIsActive(data.campaign_active || false);
+      }
+    };
+
+    loadCampaignStatus();
+  }, []);
+
   const toggleCampaign = async () => {
     setIsLoading(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("User not authenticated");
 
-      await supabase
-        .from("profiles")
+      const { error } = await supabase
+        .from('profiles')
         .update({ campaign_active: !isActive })
-        .eq("id", user.id);
+        .eq('id', user.id);
+
+      if (error) throw error;
 
       setIsActive(!isActive);
       toast({
