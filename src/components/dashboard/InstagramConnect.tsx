@@ -5,7 +5,6 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const INSTAGRAM_CLIENT_ID = "528808453359215";
-// Use https:// and properly encode the redirect URI
 const REDIRECT_URI = encodeURIComponent("https://localhost:5173/dashboard");
 
 export const InstagramConnect = () => {
@@ -91,7 +90,7 @@ export const InstagramConnect = () => {
   }, [toast]);
 
   const handleInstagramConnect = () => {
-    const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user_profile,user_media&response_type=code`;
+    const authUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=instagram_business_basic,instagram_business_manage_messages,instagram_business_manage_comments,instagram_business_content_publish`;
     window.location.href = authUrl;
   };
 
