@@ -46,9 +46,6 @@ export const Navbar = () => {
               <Button variant="ghost" onClick={() => navigate("/calculator")}>
                 Reward Calculator
               </Button>
-              <Button variant="ghost" onClick={() => navigate("/settings")}>
-                Settings
-              </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="icon">
@@ -67,47 +64,32 @@ export const Navbar = () => {
               </DropdownMenu>
             </>
           ) : (
-            isHomePage ? (
-              <>
-                <Button variant="ghost" onClick={() => navigate("/")}>
-                  Home
-                </Button>
-                <Button variant="ghost" onClick={() => navigate("/pricing")}>
-                  Pricing
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  onClick={handleWaitlistClick}
-                >
-                  Join Waitlist
-                </Button>
-                <Button 
-                  variant="default"
-                  onClick={() => navigate("/login")}
-                  className="bg-primary-600 hover:bg-primary-700"
-                >
-                  Login
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button variant="ghost" onClick={() => navigate("/pricing")}>
-                  Pricing
-                </Button>
-                <Button variant="ghost" onClick={() => navigate("/about")}>
-                  About
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  onClick={() => window.location.href = `mailto:${contactEmail}`}
-                  className="inline-flex items-center gap-2"
-                >
-                  <Mail className="h-4 w-4" />
-                  Contact
-                </Button>
-                <Button onClick={() => navigate("/login")}>Login</Button>
-              </>
-            )
+            <>
+              <Button variant="ghost" onClick={() => navigate("/pricing")}>
+                Pricing
+              </Button>
+              <Button 
+                variant="ghost" 
+                onClick={handleWaitlistClick}
+              >
+                Join Waitlist
+              </Button>
+              <Button 
+                variant="ghost" 
+                onClick={() => window.location.href = `mailto:${contactEmail}`}
+                className="inline-flex items-center gap-2"
+              >
+                <Mail className="h-4 w-4" />
+                Contact
+              </Button>
+              <Button 
+                variant="default"
+                onClick={() => navigate("/login")}
+                className="bg-primary-600 hover:bg-primary-700"
+              >
+                Login
+              </Button>
+            </>
           )}
         </div>
       </div>
