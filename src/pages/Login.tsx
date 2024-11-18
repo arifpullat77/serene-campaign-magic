@@ -38,7 +38,24 @@ const Login = () => {
             },
           },
         });
-        if (error) throw error;
+        
+        if (error) {
+          if (error.message.includes("email_address_not_authorized")) {
+            toast({
+              title: "Unauthorized Email",
+              description: "During development, only specific email domains are allowed. Please contact support for access.",
+              variant: "destructive",
+            });
+          } else {
+            toast({
+              title: "Error",
+              description: error.message,
+              variant: "destructive",
+            });
+          }
+          return;
+        }
+        
         toast({
           title: "Check your email",
           description: "We've sent you a verification link.",
@@ -48,7 +65,14 @@ const Login = () => {
           email,
           password,
         });
-        if (error) throw error;
+        if (error) {
+          toast({
+            title: "Error",
+            description: error.message,
+            variant: "destructive",
+          });
+          return;
+        }
         navigate("/dashboard");
       }
     } catch (error: any) {
