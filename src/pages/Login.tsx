@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +22,41 @@ const Login = () => {
   const [designation, setDesignation] = useState("");
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN') {
+        toast({
+          title: "Success",
+          description: "You have been successfully logged in!",
+        });
+        navigate('/dashboard');
+      } else if (event === 'SIGNED_OUT') {
+        navigate('/login');
+      } else if (event === 'USER_UPDATED') {
+        // This event is triggered when email is verified
+        toast({
+          title: "Email Verified",
+          description: "Your email has been verified. You can now log in.",
+        });
+        navigate('/login');
+      }
+    });
+
+    // Check for email verification status from URL
+    const hash = window.location.hash;
+    if (hash && hash.includes('type=email_verification')) {
+      toast({
+        title: "Verification Success",
+        description: "Your email has been verified. Please log in.",
+      });
+    }
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [navigate, toast]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
