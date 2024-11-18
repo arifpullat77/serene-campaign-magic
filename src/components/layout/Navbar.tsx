@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { LogOut, Menu, Mail } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import {
@@ -11,12 +11,18 @@ import {
 
 export const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isLoggedIn, logout } = useAuth();
   const contactEmail = "arifpullat@serenes.life";
+  const isHomePage = location.pathname === "/";
 
   const handleLogout = () => {
     logout();
     navigate("/");
+  };
+
+  const handleWaitlistClick = () => {
+    window.open("https://cutt.ly/beJsnsBc", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -61,23 +67,47 @@ export const Navbar = () => {
               </DropdownMenu>
             </>
           ) : (
-            <>
-              <Button variant="ghost" onClick={() => navigate("/pricing")}>
-                Pricing
-              </Button>
-              <Button variant="ghost" onClick={() => navigate("/about")}>
-                About
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => window.location.href = `mailto:${contactEmail}`}
-                className="inline-flex items-center gap-2"
-              >
-                <Mail className="h-4 w-4" />
-                Contact
-              </Button>
-              <Button onClick={() => navigate("/login")}>Login</Button>
-            </>
+            isHomePage ? (
+              <>
+                <Button variant="ghost" onClick={() => navigate("/")}>
+                  Home
+                </Button>
+                <Button variant="ghost" onClick={() => navigate("/pricing")}>
+                  Pricing
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  onClick={handleWaitlistClick}
+                >
+                  Join Waitlist
+                </Button>
+                <Button 
+                  variant="default"
+                  onClick={() => navigate("/login")}
+                  className="bg-primary-600 hover:bg-primary-700"
+                >
+                  Login
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" onClick={() => navigate("/pricing")}>
+                  Pricing
+                </Button>
+                <Button variant="ghost" onClick={() => navigate("/about")}>
+                  About
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => window.location.href = `mailto:${contactEmail}`}
+                  className="inline-flex items-center gap-2"
+                >
+                  <Mail className="h-4 w-4" />
+                  Contact
+                </Button>
+                <Button onClick={() => navigate("/login")}>Login</Button>
+              </>
+            )
           )}
         </div>
       </div>
