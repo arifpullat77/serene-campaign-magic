@@ -37,6 +37,9 @@ export const Navbar = () => {
               <Button variant="ghost" onClick={() => navigate("/dashboard")}>
                 Dashboard
               </Button>
+              <Button variant="ghost" onClick={() => navigate("/calculator")}>
+                Reward Calculator
+              </Button>
               <Button variant="ghost" onClick={() => navigate("/campaigns")}>
                 Campaigns
               </Button>
