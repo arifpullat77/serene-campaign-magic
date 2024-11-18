@@ -40,19 +40,11 @@ const Login = () => {
         });
         
         if (error) {
-          if (error.message.includes("email_address_not_authorized")) {
-            toast({
-              title: "Unauthorized Email",
-              description: "During development, only specific email domains are allowed. Please contact support for access.",
-              variant: "destructive",
-            });
-          } else {
-            toast({
-              title: "Error",
-              description: error.message,
-              variant: "destructive",
-            });
-          }
+          toast({
+            title: "Error",
+            description: error.message,
+            variant: "destructive",
+          });
           return;
         }
         
