@@ -24,11 +24,11 @@ export const HeroSection = () => {
             automate rewards for instagram mentions. save marketing costs. grow organically.
           </p>
           
-          <div className="flex justify-center pt-8">
+          <div className="flex justify-center pt-4">
             <Button
               onClick={() => navigate("/login")}
               size="lg"
-              className="min-w-[160px] bg-primary-600 hover:bg-primary-700 text-white"
+              className="min-w-[160px] bg-primary-600 hover:bg-primary-700 text-white font-semibold"
             >
               Get Started
             </Button>
