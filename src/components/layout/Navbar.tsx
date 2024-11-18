@@ -40,12 +40,6 @@ export const Navbar = () => {
               <Button variant="ghost" onClick={() => navigate("/calculator")}>
                 Reward Calculator
               </Button>
-              <Button variant="ghost" onClick={() => navigate("/campaigns")}>
-                Campaigns
-              </Button>
-              <Button variant="ghost" onClick={() => navigate("/analytics")}>
-                Analytics
-              </Button>
               <Button variant="ghost" onClick={() => navigate("/settings")}>
                 Settings
               </Button>
