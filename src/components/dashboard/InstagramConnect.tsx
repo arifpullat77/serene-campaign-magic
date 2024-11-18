@@ -5,8 +5,8 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const INSTAGRAM_CLIENT_ID = "528808453359215";
-// Use the encoded version of the redirect URI to prevent parsing issues
-const REDIRECT_URI = encodeURIComponent("http://localhost:5173/dashboard");
+// Use https:// and properly encode the redirect URI
+const REDIRECT_URI = encodeURIComponent("https://localhost:5173/dashboard");
 
 export const InstagramConnect = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -27,7 +27,6 @@ export const InstagramConnect = () => {
 
         if (error) throw error;
         
-        // Only set as connected if we have both the flag and a valid token
         setIsConnected(data?.instagram_connected && !!data?.instagram_access_token);
       } catch (error) {
         console.error('Error loading Instagram status:', error);
@@ -48,14 +47,12 @@ export const InstagramConnect = () => {
           const { data: { user } } = await supabase.auth.getUser();
           if (!user) throw new Error("User not authenticated");
 
-          // Exchange code for access token using our edge function
           const { data, error } = await supabase.functions.invoke('instagram-auth', {
             body: { code }
           });
 
           if (error) throw error;
 
-          // Update profile with Instagram credentials
           const { error: updateError } = await supabase
             .from('profiles')
             .update({
