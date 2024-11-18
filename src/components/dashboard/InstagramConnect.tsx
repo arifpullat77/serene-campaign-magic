@@ -5,7 +5,8 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const INSTAGRAM_CLIENT_ID = "528808453359215";
-const REDIRECT_URI = "http://localhost:5173/dashboard";
+// Use the encoded version of the redirect URI to prevent parsing issues
+const REDIRECT_URI = encodeURIComponent("http://localhost:5173/dashboard");
 
 export const InstagramConnect = () => {
   const [isConnected, setIsConnected] = useState(false);
