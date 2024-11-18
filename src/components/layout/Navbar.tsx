@@ -14,7 +14,6 @@ export const Navbar = () => {
   const location = useLocation();
   const { isLoggedIn, logout } = useAuth();
   const contactEmail = "arifpullat@serenes.life";
-  const isHomePage = location.pathname === "/";
 
   const handleLogout = () => {
     logout();
