@@ -40,6 +40,12 @@ export const HeroSection = () => {
             >
               View Pricing
             </Button>
+            <Button
+              onClick={() => navigate("/login")}
+              className="px-8 py-6 text-lg font-medium text-white rounded-md bg-gradient-to-r from-blue-500 via-purple-500 via-red-500 via-yellow-500 to-green-500 hover:opacity-90 transition-opacity"
+            >
+              Sign Up
+            </Button>
           </div>
         </div>
       </div>
