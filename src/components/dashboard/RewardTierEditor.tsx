@@ -10,12 +10,19 @@ import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { RewardTier } from "@/integrations/supabase/types";
 
+const DEFAULT_TIERS = [
+  { min_followers: 1000, max_followers: 2000, amount: 500, coupon_code: '' },
+  { min_followers: 2000, max_followers: 3500, amount: 1000, coupon_code: '' },
+  { min_followers: 3500, max_followers: 5000, amount: 1500, coupon_code: '' },
+  { min_followers: 5000, max_followers: 10000, amount: 2000, coupon_code: '' },
+];
+
 export const RewardTierEditor = () => {
   const { toast } = useToast();
   const { currency, setCurrency } = useCurrency();
   const queryClient = useQueryClient();
 
-  const { data: tiers, isLoading } = useQuery<RewardTier[]>({
+  const { data: tiers = [], isLoading } = useQuery({
     queryKey: ['rewardTiers'],
     queryFn: async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -28,7 +35,14 @@ export const RewardTierEditor = () => {
         .order('min_followers', { ascending: true });
 
       if (error) throw error;
-      return data || [];
+      return data.length ? data : DEFAULT_TIERS.map(tier => ({
+        ...tier,
+        id: crypto.randomUUID(),
+        profile_id: user.id,
+        currency: currency,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }));
     }
   });
 
@@ -118,6 +132,7 @@ export const RewardTierEditor = () => {
                     queryClient.setQueryData(['rewardTiers'], newTiers);
                   }}
                   className="w-24"
+                  placeholder="Min"
                 />
                 <span>-</span>
                 <Input
@@ -130,6 +145,7 @@ export const RewardTierEditor = () => {
                     queryClient.setQueryData(['rewardTiers'], newTiers);
                   }}
                   className="w-24"
+                  placeholder="Max"
                 />
               </TableCell>
               <TableCell>
@@ -143,6 +159,7 @@ export const RewardTierEditor = () => {
                     queryClient.setQueryData(['rewardTiers'], newTiers);
                   }}
                   className="w-32"
+                  placeholder="Enter amount"
                 />
               </TableCell>
               <TableCell>
