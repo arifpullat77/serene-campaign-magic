@@ -19,10 +19,11 @@ export const Analytics = () => {
         .from('campaign_stats')
         .select('*')
         .eq('profile_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (error && error.code !== 'PGRST116') throw error;
       
+      // If no data exists, return default values
       return data || {
         id: '',
         profile_id: user.id,
