@@ -14,7 +14,7 @@ const Careers = () => {
           </p>
         </div>
 
-        {/* Currently no open positions */}
+        {/* Content */}
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-gray-400 mb-8">
             We're not currently hiring, but we're always interested in meeting talented people. 
