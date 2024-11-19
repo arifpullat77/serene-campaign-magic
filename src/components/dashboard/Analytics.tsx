@@ -4,11 +4,12 @@ import { LucideBarChart, Users, DollarSign } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import type { CampaignStats } from "@/integrations/supabase/types";
 
 export const Analytics = () => {
   const { currency } = useCurrency();
 
-  const { data: stats, isLoading } = useQuery({
+  const { data: stats, isLoading } = useQuery<CampaignStats>({
     queryKey: ['campaignStats'],
     queryFn: async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -23,9 +24,14 @@ export const Analytics = () => {
       if (error && error.code !== 'PGRST116') throw error;
       
       return data || {
+        id: '',
+        profile_id: user.id,
         total_rewards_given: 0,
         total_reach: 0,
-        ad_spending_saved: 0
+        ad_spending_saved: 0,
+        currency: currency,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       };
     }
   });

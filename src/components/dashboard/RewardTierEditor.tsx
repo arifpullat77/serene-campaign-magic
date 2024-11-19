@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -8,22 +8,14 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
-interface RewardTier {
-  id: string;
-  min_followers: number;
-  max_followers: number;
-  amount: number;
-  coupon_code: string | null;
-  currency: string;
-}
+import type { RewardTier } from "@/integrations/supabase/types";
 
 export const RewardTierEditor = () => {
   const { toast } = useToast();
   const { currency, setCurrency, currencySymbol } = useCurrency();
   const queryClient = useQueryClient();
 
-  const { data: tiers, isLoading } = useQuery({
+  const { data: tiers, isLoading } = useQuery<RewardTier[]>({
     queryKey: ['rewardTiers'],
     queryFn: async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -36,7 +28,7 @@ export const RewardTierEditor = () => {
         .order('min_followers', { ascending: true });
 
       if (error) throw error;
-      return data as RewardTier[];
+      return data;
     }
   });
 

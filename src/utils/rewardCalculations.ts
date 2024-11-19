@@ -1,12 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
-
-interface RewardTier {
-  min_followers: number;
-  max_followers: number;
-  amount: number;
-  coupon_code: string | null;
-  currency: string;
-}
+import type { RewardTier, CampaignStats } from "@/integrations/supabase/types";
 
 export const calculateRewardForMention = async (profileId: string, followers: number) => {
   const { data: tiers, error } = await supabase
@@ -22,7 +15,7 @@ export const calculateRewardForMention = async (profileId: string, followers: nu
     return null;
   }
 
-  return tiers;
+  return tiers as RewardTier;
 };
 
 export const updateCampaignStats = async (
@@ -41,7 +34,7 @@ export const updateCampaignStats = async (
       total_reach: reach,
       ad_spending_saved: adSpendingSaved,
       updated_at: new Date().toISOString()
-    });
+    } as Partial<CampaignStats>);
 
   if (error) {
     console.error('Error updating campaign stats:', error);
