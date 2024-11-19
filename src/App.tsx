@@ -12,6 +12,9 @@ import Pricing from "./pages/Pricing";
 import Features from "./pages/Features";
 import Integrations from "./pages/Integrations";
 import About from "./pages/About";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Careers from "./pages/Careers";
 import RewardsCalculator from "./pages/RewardsCalculator";
 import { Navbar } from "./components/layout/Navbar";
 import { useAuth } from "./contexts/AuthContext";
@@ -34,6 +37,9 @@ const AppRoutes = () => {
       <Route path="/features" element={<Features />} />
       <Route path="/integrations" element={<Integrations />} />
       <Route path="/about" element={<About />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/careers" element={<Careers />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/calculator" element={<RewardsCalculator />} />
