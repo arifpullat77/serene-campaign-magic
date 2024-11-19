@@ -12,7 +12,7 @@ import type { RewardTier } from "@/integrations/supabase/types";
 
 export const RewardTierEditor = () => {
   const { toast } = useToast();
-  const { currency, setCurrency, currencySymbol } = useCurrency();
+  const { currency, setCurrency } = useCurrency();
   const queryClient = useQueryClient();
 
   const { data: tiers, isLoading } = useQuery<RewardTier[]>({
@@ -28,7 +28,7 @@ export const RewardTierEditor = () => {
         .order('min_followers', { ascending: true });
 
       if (error) throw error;
-      return data;
+      return data || [];
     }
   });
 
