@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -6,63 +6,83 @@ import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface RewardTier {
-  id: number;
-  minFollowers: number;
-  maxFollowers: number;
+  id: string;
+  min_followers: number;
+  max_followers: number;
   amount: number;
-  couponCode: string;
+  coupon_code: string | null;
+  currency: string;
 }
 
 export const RewardTierEditor = () => {
   const { toast } = useToast();
   const { currency, setCurrency, currencySymbol } = useCurrency();
-  const [tiers, setTiers] = React.useState<RewardTier[]>([
-    { id: 1, minFollowers: 0, maxFollowers: 999, amount: 300, couponCode: "" },
-    { id: 2, minFollowers: 1000, maxFollowers: 1499, amount: 500, couponCode: "" },
-    { id: 3, minFollowers: 1500, maxFollowers: 1999, amount: 800, couponCode: "" },
-    { id: 4, minFollowers: 2000, maxFollowers: 3000, amount: 1000, couponCode: "" },
-  ]);
+  const queryClient = useQueryClient();
 
-  const handleAmountChange = (id: number, value: string) => {
-    setTiers(
-      tiers.map((tier) =>
-        tier.id === id ? { ...tier, amount: parseInt(value) || 0 } : tier
-      )
-    );
+  const { data: tiers, isLoading } = useQuery({
+    queryKey: ['rewardTiers'],
+    queryFn: async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      const { data, error } = await supabase
+        .from('reward_tiers')
+        .select('*')
+        .eq('profile_id', user.id)
+        .order('min_followers', { ascending: true });
+
+      if (error) throw error;
+      return data as RewardTier[];
+    }
+  });
+
+  const updateTierMutation = useMutation({
+    mutationFn: async (tier: RewardTier) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      const { error } = await supabase
+        .from('reward_tiers')
+        .upsert({
+          ...tier,
+          profile_id: user.id,
+          currency: currency,
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['rewardTiers'] });
+      toast({
+        title: "Success",
+        description: "Reward tier updated successfully",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  });
+
+  const handleSave = async () => {
+    if (!tiers) return;
+    
+    for (const tier of tiers) {
+      await updateTierMutation.mutateAsync(tier);
+    }
   };
 
-  const handleMinFollowersChange = (id: number, value: string) => {
-    setTiers(
-      tiers.map((tier) =>
-        tier.id === id ? { ...tier, minFollowers: parseInt(value) || 0 } : tier
-      )
-    );
-  };
-
-  const handleMaxFollowersChange = (id: number, value: string) => {
-    setTiers(
-      tiers.map((tier) =>
-        tier.id === id ? { ...tier, maxFollowers: parseInt(value) || 0 } : tier
-      )
-    );
-  };
-
-  const handleCouponChange = (id: number, value: string) => {
-    setTiers(
-      tiers.map((tier) =>
-        tier.id === id ? { ...tier, couponCode: value } : tier
-      )
-    );
-  };
-
-  const handleSave = () => {
-    toast({
-      title: "Reward Tiers Updated",
-      description: "Your reward tier settings have been saved successfully.",
-    });
-  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="space-y-4">
@@ -93,20 +113,30 @@ export const RewardTierEditor = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {tiers.map((tier) => (
+          {tiers?.map((tier) => (
             <TableRow key={tier.id}>
               <TableCell className="flex items-center gap-2">
                 <Input
                   type="number"
-                  value={tier.minFollowers}
-                  onChange={(e) => handleMinFollowersChange(tier.id, e.target.value)}
+                  value={tier.min_followers}
+                  onChange={(e) => {
+                    const newTiers = tiers.map(t => 
+                      t.id === tier.id ? { ...t, min_followers: parseInt(e.target.value) || 0 } : t
+                    );
+                    queryClient.setQueryData(['rewardTiers'], newTiers);
+                  }}
                   className="w-24"
                 />
                 <span>-</span>
                 <Input
                   type="number"
-                  value={tier.maxFollowers}
-                  onChange={(e) => handleMaxFollowersChange(tier.id, e.target.value)}
+                  value={tier.max_followers}
+                  onChange={(e) => {
+                    const newTiers = tiers.map(t => 
+                      t.id === tier.id ? { ...t, max_followers: parseInt(e.target.value) || 0 } : t
+                    );
+                    queryClient.setQueryData(['rewardTiers'], newTiers);
+                  }}
                   className="w-24"
                 />
               </TableCell>
@@ -114,15 +144,25 @@ export const RewardTierEditor = () => {
                 <Input
                   type="number"
                   value={tier.amount}
-                  onChange={(e) => handleAmountChange(tier.id, e.target.value)}
+                  onChange={(e) => {
+                    const newTiers = tiers.map(t => 
+                      t.id === tier.id ? { ...t, amount: parseInt(e.target.value) || 0 } : t
+                    );
+                    queryClient.setQueryData(['rewardTiers'], newTiers);
+                  }}
                   className="w-32"
                 />
               </TableCell>
               <TableCell>
                 <Input
                   type="text"
-                  value={tier.couponCode}
-                  onChange={(e) => handleCouponChange(tier.id, e.target.value)}
+                  value={tier.coupon_code || ''}
+                  onChange={(e) => {
+                    const newTiers = tiers.map(t => 
+                      t.id === tier.id ? { ...t, coupon_code: e.target.value } : t
+                    );
+                    queryClient.setQueryData(['rewardTiers'], newTiers);
+                  }}
                   placeholder="Enter coupon code"
                   className="w-48"
                 />
@@ -132,7 +172,12 @@ export const RewardTierEditor = () => {
         </TableBody>
       </Table>
       <div className="flex justify-end">
-        <Button onClick={handleSave}>Save Changes</Button>
+        <Button 
+          onClick={handleSave}
+          disabled={updateTierMutation.isPending}
+        >
+          {updateTierMutation.isPending ? "Saving..." : "Save Changes"}
+        </Button>
       </div>
     </div>
   );

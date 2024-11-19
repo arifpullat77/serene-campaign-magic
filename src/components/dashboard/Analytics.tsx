@@ -1,14 +1,38 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LucideBarChart, Users, DollarSign } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useQuery } from "@tanstack/react-query";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export const Analytics = () => {
-  // Mock data - would be replaced with real API data
-  const stats = {
-    totalRewards: "15,000 INR",
-    totalReach: "25.5K",
-    adSpendingSaved: "45,000 INR",
-  };
+  const { currency } = useCurrency();
+
+  const { data: stats, isLoading } = useQuery({
+    queryKey: ['campaignStats'],
+    queryFn: async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      const { data, error } = await supabase
+        .from('campaign_stats')
+        .select('*')
+        .eq('profile_id', user.id)
+        .single();
+
+      if (error && error.code !== 'PGRST116') throw error;
+      
+      return data || {
+        total_rewards_given: 0,
+        total_reach: 0,
+        ad_spending_saved: 0
+      };
+    }
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="grid gap-4 md:grid-cols-3">
@@ -18,7 +42,12 @@ export const Analytics = () => {
           <DollarSign className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{stats.totalRewards}</div>
+          <div className="text-2xl font-bold">
+            {stats?.total_rewards_given.toLocaleString('en-IN', {
+              style: 'currency',
+              currency: currency
+            })}
+          </div>
         </CardContent>
       </Card>
       <Card>
@@ -27,7 +56,9 @@ export const Analytics = () => {
           <Users className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{stats.totalReach}</div>
+          <div className="text-2xl font-bold">
+            {stats?.total_reach.toLocaleString()}
+          </div>
         </CardContent>
       </Card>
       <Card>
@@ -36,7 +67,12 @@ export const Analytics = () => {
           <LucideBarChart className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{stats.adSpendingSaved}</div>
+          <div className="text-2xl font-bold">
+            {stats?.ad_spending_saved.toLocaleString('en-IN', {
+              style: 'currency',
+              currency: currency
+            })}
+          </div>
         </CardContent>
       </Card>
     </div>
