@@ -53,7 +53,7 @@ export const EmailPopup = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px] mx-4 bg-gradient-to-br from-primary-100 via-secondary-100 to-primary-200 text-black p-0 gap-0 animate-fade-up rounded-2xl">
+      <DialogContent className="sm:max-w-[425px] mx-4 md:mx-auto bg-gradient-to-br from-primary-100 via-secondary-100 to-primary-200 text-black p-0 gap-0 animate-fade-up rounded-2xl">
         <div className="relative p-6">
           <button
             onClick={() => setOpen(false)}
@@ -68,7 +68,7 @@ export const EmailPopup = () => {
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="mt-4 border-gray-200 rounded-xl"
+                className="mt-4 border-gray-200 rounded-xl text-black"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
