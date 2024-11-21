@@ -4,3 +4,4 @@ export type { RewardTier, RewardTierInsert, RewardTierUpdate } from './rewards.t
 export type { Profile, ProfileInsert, ProfileUpdate } from './profile.types';
 export type { Mention, MentionInsert, MentionUpdate } from './mention.types';
 export type { MessageTemplate, MessageTemplateInsert, MessageTemplateUpdate } from './message.types';
+export * from './database.types';

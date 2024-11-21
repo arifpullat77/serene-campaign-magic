@@ -1,5 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
-import type { RewardTier, CampaignStats } from "@/integrations/supabase/types";
+import type { RewardTier } from "@/integrations/supabase/types/rewards.types";
+import type { CampaignStats } from "@/integrations/supabase/types/campaign.types";
 
 export const calculateRewardForMention = async (profileId: string, followers: number) => {
   const { data: tiers, error } = await supabase

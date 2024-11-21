@@ -4,7 +4,7 @@ import { LucideBarChart, Users, DollarSign } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import type { CampaignStats } from "@/integrations/supabase/types";
+import type { CampaignStats } from "@/integrations/supabase/types/campaign.types";
 
 export const Analytics = () => {
   const { currency } = useCurrency();
