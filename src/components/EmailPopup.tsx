@@ -53,7 +53,7 @@ export const EmailPopup = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px] mx-4 md:mx-auto bg-gradient-to-br from-primary-100 via-secondary-100 to-primary-200 text-black p-0 gap-0 animate-fade-up rounded-2xl">
+      <DialogContent className="sm:max-w-[425px] mx-auto bg-gradient-to-br from-primary-100 via-secondary-100 to-primary-200 text-black p-0 gap-0 animate-fade-up rounded-2xl">
         <div className="relative p-6">
           <button
             onClick={() => setOpen(false)}
