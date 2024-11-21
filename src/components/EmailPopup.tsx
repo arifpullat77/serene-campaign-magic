@@ -29,8 +29,8 @@ export const EmailPopup = () => {
     setIsSubmitting(true);
     try {
       const { error } = await supabase
-        .from("leads")
-        .insert([{ email }]);
+        .from('leads')
+        .insert({ email });
 
       if (error) throw error;
 
