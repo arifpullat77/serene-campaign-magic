@@ -53,7 +53,7 @@ export const EmailPopup = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px] bg-white text-black p-0 gap-0 animate-fade-up">
+      <DialogContent className="sm:max-w-[425px] mx-4 bg-gradient-to-br from-primary-100 via-secondary-100 to-primary-200 text-black p-0 gap-0 animate-fade-up rounded-2xl">
         <div className="relative p-6">
           <button
             onClick={() => setOpen(false)}
@@ -64,11 +64,11 @@ export const EmailPopup = () => {
           </button>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="text-center">
-              <h2 className="text-lg font-semibold">Join Our Community</h2>
+              <h2 className="text-lg font-semibold">Improve ROAS Now</h2>
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="mt-4 border-gray-200"
+                className="mt-4 border-gray-200 rounded-xl"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -76,7 +76,7 @@ export const EmailPopup = () => {
             </div>
             <Button
               type="submit"
-              className="w-full bg-black hover:bg-gray-800 text-white"
+              className="w-full bg-black hover:bg-gray-800 text-white rounded-xl"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Joining..." : "Join"}
