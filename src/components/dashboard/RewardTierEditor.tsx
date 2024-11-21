@@ -8,7 +8,7 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import type { RewardTier } from "@/integrations/supabase/types";
+import type { RewardTier } from "@/integrations/supabase/types/rewards.types";
 
 const DEFAULT_TIERS = [
   { min_followers: 1000, max_followers: 2000, amount: 500, coupon_code: '' },

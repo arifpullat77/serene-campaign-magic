@@ -35,7 +35,7 @@ export const updateCampaignStats = async (
       total_reach: reach,
       ad_spending_saved: adSpendingSaved,
       updated_at: new Date().toISOString()
-    } as Partial<CampaignStats>);
+    });
 
   if (error) {
     console.error('Error updating campaign stats:', error);
