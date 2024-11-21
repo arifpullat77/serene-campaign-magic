@@ -68,7 +68,7 @@ export const EmailPopup = () => {
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="mt-4 border-gray-200 rounded-xl text-black placeholder:text-gray-500"
+                className="mt-4 border-gray-200 rounded-xl text-white placeholder:text-gray-500"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
