@@ -3,6 +3,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { BenefitsSection } from "@/components/home/BenefitsSection";
 import { FAQSection } from "@/components/home/FAQSection";
+import { EmailPopup } from "@/components/EmailPopup";
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
       <BenefitsSection />
       <FAQSection />
       <Footer />
+      <EmailPopup />
     </div>
   );
 };
