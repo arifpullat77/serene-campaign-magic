@@ -4,7 +4,8 @@ import { Instagram } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
-const INSTAGRAM_CLIENT_ID = "528808453359215";
+// Use the correct client ID from your Meta Developer Console
+const INSTAGRAM_CLIENT_ID = "1088199005875337";
 const REDIRECT_URI = "http://localhost:5173/auth/callback";
 
 export const InstagramConnect = () => {
