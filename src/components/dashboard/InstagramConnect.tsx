@@ -40,6 +40,17 @@ export const InstagramConnect = () => {
     const handleOAuthRedirect = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
+      const error = urlParams.get('error');
+      const errorDescription = urlParams.get('error_description');
+      
+      if (error) {
+        toast({
+          title: "Instagram Connection Error",
+          description: errorDescription || "Failed to connect to Instagram",
+          variant: "destructive",
+        });
+        return;
+      }
       
       if (code) {
         setIsConnecting(true);
@@ -52,7 +63,12 @@ export const InstagramConnect = () => {
             body: { code }
           });
 
-          if (error) throw error;
+          if (error) {
+            if (error.message.includes("Insufficient developer role")) {
+              throw new Error("Please accept the Instagram Tester invitation in your Instagram account settings first");
+            }
+            throw error;
+          }
 
           // Set up webhook subscription
           const subscriptionResponse = await fetch('https://graph.facebook.com/v18.0/app/subscriptions', {
