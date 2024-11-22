@@ -1,3 +1,5 @@
+import type { InstagramWebhookEvent, InstagramWebhookEventInsert, InstagramWebhookEventUpdate } from './instagram.types';
+
 export type Json =
   | string
   | number
@@ -9,6 +11,11 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      instagram_webhook_events: {
+        Row: InstagramWebhookEvent;
+        Insert: InstagramWebhookEventInsert;
+        Update: InstagramWebhookEventUpdate;
+      };
       campaign_stats: {
         Row: CampaignStats;
         Insert: CampaignStatsInsert;
