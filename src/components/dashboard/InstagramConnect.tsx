@@ -5,7 +5,8 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const INSTAGRAM_CLIENT_ID = "528808453359215";
-const REDIRECT_URI = "https://localhost:5173/auth/callback"; // Updated to a more standard OAuth callback URL
+const REDIRECT_URI = "https://localhost:5173/auth/callback";
+const WEBHOOK_URL = "https://fojtlzgvbhasumaadzhk.supabase.co/functions/v1/instagram-webhook";
 
 export const InstagramConnect = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -46,12 +47,33 @@ export const InstagramConnect = () => {
           const { data: { user } } = await supabase.auth.getUser();
           if (!user) throw new Error("User not authenticated");
 
+          // Exchange code for access token
           const { data, error } = await supabase.functions.invoke('instagram-auth', {
             body: { code }
           });
 
           if (error) throw error;
 
+          // Set up webhook subscription
+          const subscriptionResponse = await fetch('https://graph.facebook.com/v18.0/app/subscriptions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              object: 'instagram',
+              callback_url: WEBHOOK_URL,
+              fields: ['mentions', 'comments', 'messages'],
+              verify_token: 'your_verify_token',
+              access_token: data.access_token,
+            }),
+          });
+
+          if (!subscriptionResponse.ok) {
+            throw new Error('Failed to set up webhook subscription');
+          }
+
+          // Update profile with Instagram credentials
           const { error: updateError } = await supabase
             .from('profiles')
             .update({
