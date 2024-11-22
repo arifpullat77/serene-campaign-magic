@@ -110,20 +110,7 @@ export const InstagramConnect = () => {
   }, [toast]);
 
   const handleInstagramConnect = () => {
-    const scopes = [
-      'user_profile',
-      'user_media'
-    ].join(',');
-
-    const params = new URLSearchParams({
-      client_id: INSTAGRAM_CLIENT_ID,
-      redirect_uri: REDIRECT_URI,
-      scope: scopes,
-      response_type: 'code',
-      state: 'instagram_auth'
-    });
-
-    const authUrl = `https://api.instagram.com/oauth/authorize?${params.toString()}`;
+    const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user_profile,user_media&response_type=code`;
     window.location.href = authUrl;
   };
 
