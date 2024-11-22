@@ -111,9 +111,8 @@ export const InstagramConnect = () => {
 
   const handleInstagramConnect = () => {
     const scopes = [
-      'instagram_basic',
-      'instagram_content_publish',
-      'instagram_public_content'
+      'user_profile',
+      'user_media'
     ].join(',');
 
     const params = new URLSearchParams({
