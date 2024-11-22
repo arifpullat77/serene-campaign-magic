@@ -3,3 +3,5 @@ project_id = "fojtlzgvbhasumaadzhk"
 verify_jwt = false
 [functions.process-webhook-events]
 verify_jwt = false
+[functions.process-mention]
+verify_jwt = false

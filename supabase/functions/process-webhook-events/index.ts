@@ -33,7 +33,7 @@ serve(async (req) => {
         const mentionData = event.raw_data.changes[0].value
         
         // Create mention record
-        const { error: mentionError } = await supabase
+        const { data: mention, error: mentionError } = await supabase
           .from('mentions')
           .insert({
             profile_id: event.profile_id,
@@ -45,10 +45,21 @@ serve(async (req) => {
             status: 'pending',
             coupon_eligible: 0
           })
+          .select()
+          .single()
 
         if (mentionError) {
           console.error('Error creating mention:', mentionError)
           continue
+        }
+
+        // Process rewards for the mention
+        const { error: rewardError } = await supabase.functions.invoke('process-mention', {
+          body: { mentionId: mention.id }
+        })
+
+        if (rewardError) {
+          console.error('Error processing rewards:', rewardError)
         }
       }
 

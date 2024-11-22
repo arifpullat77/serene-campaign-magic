@@ -40,7 +40,7 @@ serve(async (req) => {
 
     if (tierError) throw tierError
 
-    // Update mention status and add coupon
+    // Update mention with reward amount
     const { error: updateError } = await supabaseClient
       .from('mentions')
       .update({
@@ -52,11 +52,17 @@ serve(async (req) => {
     if (updateError) throw updateError
 
     // Update campaign stats
-    await supabaseClient.rpc('update_campaign_stats', {
-      p_profile_id: mention.profile_id,
-      p_reward_amount: rewardTier.amount,
-      p_reach: mention.estimated_reach
-    })
+    const { data: stats, error: statsError } = await supabaseClient
+      .from('campaign_stats')
+      .upsert({
+        profile_id: mention.profile_id,
+        total_rewards_given: rewardTier.amount,
+        total_reach: mention.estimated_reach,
+        ad_spending_saved: mention.estimated_reach * 0.1, // Estimated cost per reach
+        updated_at: new Date().toISOString()
+      })
+
+    if (statsError) throw statsError
 
     return new Response(
       JSON.stringify({ success: true, reward: rewardTier }),
@@ -67,7 +73,7 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({ error: error.message }),
       { 
-        status: 400,
+        status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       }
     )
