@@ -110,7 +110,7 @@ export const InstagramConnect = () => {
   }, [toast]);
 
   const handleInstagramConnect = () => {
-    const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user_profile,user_media&response_type=code`;
+    const authUrl = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=instagram_basic,instagram_content_publish&response_type=code`;
     window.location.href = authUrl;
   };
 
