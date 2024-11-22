@@ -70,25 +70,6 @@ export const InstagramConnect = () => {
             throw error;
           }
 
-          // Set up webhook subscription
-          const subscriptionResponse = await fetch('https://graph.facebook.com/v18.0/app/subscriptions', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              object: 'instagram',
-              callback_url: WEBHOOK_URL,
-              fields: ['mentions', 'comments', 'messages'],
-              verify_token: 'your_verify_token',
-              access_token: data.access_token,
-            }),
-          });
-
-          if (!subscriptionResponse.ok) {
-            throw new Error('Failed to set up webhook subscription');
-          }
-
           // Update profile with Instagram credentials
           const { error: updateError } = await supabase
             .from('profiles')
@@ -129,19 +110,15 @@ export const InstagramConnect = () => {
 
   const handleInstagramConnect = () => {
     const scopes = [
-      'instagram_business_basic',
-      'instagram_business_manage_messages',
-      'instagram_business_manage_comments',
-      'instagram_business_content_publish'
+      'instagram_basic',
+      'instagram_content_publish'
     ].join(',');
 
     const params = new URLSearchParams({
       client_id: INSTAGRAM_CLIENT_ID,
       redirect_uri: REDIRECT_URI,
       scope: scopes,
-      response_type: 'code',
-      enable_fb_login: '0',
-      force_authentication: '1'
+      response_type: 'code'
     });
 
     const authUrl = `https://api.instagram.com/oauth/authorize?${params.toString()}`;
