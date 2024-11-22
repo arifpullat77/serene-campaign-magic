@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const INSTAGRAM_CLIENT_ID = "528808453359215";
-const REDIRECT_URI = "http://localhost:5173/dashboard";
+const REDIRECT_URI = "http://localhost:5173/auth/callback";
 
 export const InstagramConnect = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -43,6 +43,7 @@ export const InstagramConnect = () => {
       const errorDescription = urlParams.get('error_description');
       
       if (error) {
+        console.error('Instagram OAuth error:', error, errorDescription);
         toast({
           title: "Instagram Connection Error",
           description: errorDescription || "Failed to connect to Instagram",
@@ -59,10 +60,16 @@ export const InstagramConnect = () => {
 
           // Exchange code for access token
           const { data, error } = await supabase.functions.invoke('instagram-auth', {
-            body: { code }
+            body: { code, redirect_uri: REDIRECT_URI }
           });
 
-          if (error) throw error;
+          if (error) {
+            console.error('Instagram auth error:', error);
+            if (error.message.includes("invalid_request")) {
+              throw new Error("Invalid Instagram authorization request. Please try again.");
+            }
+            throw error;
+          }
 
           // Update profile with Instagram credentials
           const { error: updateError } = await supabase
@@ -90,7 +97,7 @@ export const InstagramConnect = () => {
           setIsConnected(false);
           toast({
             title: "Error",
-            description: error.message,
+            description: error.message || "Failed to connect Instagram account",
             variant: "destructive",
           });
         } finally {
@@ -105,14 +112,16 @@ export const InstagramConnect = () => {
   const handleInstagramConnect = () => {
     const scopes = [
       'instagram_basic',
-      'instagram_content_publish'
+      'instagram_content_publish',
+      'instagram_public_content'
     ].join(',');
 
     const params = new URLSearchParams({
       client_id: INSTAGRAM_CLIENT_ID,
       redirect_uri: REDIRECT_URI,
       scope: scopes,
-      response_type: 'code'
+      response_type: 'code',
+      state: 'instagram_auth'
     });
 
     const authUrl = `https://api.instagram.com/oauth/authorize?${params.toString()}`;
@@ -145,7 +154,7 @@ export const InstagramConnect = () => {
       console.error('Error disconnecting Instagram:', error);
       toast({
         title: "Error",
-        description: error.message,
+        description: error.message || "Failed to disconnect Instagram account",
         variant: "destructive",
       });
     }
