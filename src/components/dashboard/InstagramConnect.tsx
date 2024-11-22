@@ -6,7 +6,6 @@ import { supabase } from "@/integrations/supabase/client";
 
 const INSTAGRAM_CLIENT_ID = "528808453359215";
 const REDIRECT_URI = "http://localhost:5173/dashboard";
-const WEBHOOK_URL = "https://fojtlzgvbhasumaadzhk.supabase.co/functions/v1/instagram-webhook";
 
 export const InstagramConnect = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -63,12 +62,7 @@ export const InstagramConnect = () => {
             body: { code }
           });
 
-          if (error) {
-            if (error.message.includes("Insufficient developer role")) {
-              throw new Error("Please accept the Instagram Tester invitation in your Instagram account settings first");
-            }
-            throw error;
-          }
+          if (error) throw error;
 
           // Update profile with Instagram credentials
           const { error: updateError } = await supabase
