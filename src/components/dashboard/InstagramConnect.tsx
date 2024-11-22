@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const INSTAGRAM_CLIENT_ID = "528808453359215";
-const REDIRECT_URI = "https://localhost:5173/auth/callback";
+const REDIRECT_URI = "http://localhost:5173/auth/callback";
 const WEBHOOK_URL = "https://fojtlzgvbhasumaadzhk.supabase.co/functions/v1/instagram-webhook";
 
 export const InstagramConnect = () => {
