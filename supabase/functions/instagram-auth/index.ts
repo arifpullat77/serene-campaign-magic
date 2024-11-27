@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,13 +11,14 @@ serve(async (req) => {
   }
 
   try {
-    const { code } = await req.json()
+    const { code, redirect_uri } = await req.json()
     
     if (!code) {
       throw new Error('No authorization code provided')
     }
 
-    console.log('Exchanging code for access token...')
+    console.log('Received auth code, preparing to exchange for token')
+    console.log('Using redirect URI:', redirect_uri)
 
     const tokenResponse = await fetch('https://api.instagram.com/oauth/access_token', {
       method: 'POST',
@@ -26,7 +26,7 @@ serve(async (req) => {
         client_id: Deno.env.get('INSTAGRAM_CLIENT_ID')!,
         client_secret: Deno.env.get('INSTAGRAM_CLIENT_SECRET')!,
         grant_type: 'authorization_code',
-        redirect_uri: 'https://localhost:5173/auth/callback',
+        redirect_uri,
         code,
       })
     })
@@ -38,6 +38,8 @@ serve(async (req) => {
       throw new Error(tokenData.error_message || 'Failed to exchange code for token')
     }
 
+    console.log('Successfully exchanged code for token')
+
     // Get user details using the access token
     const userResponse = await fetch(
       `https://graph.instagram.com/me?fields=id,username&access_token=${tokenData.access_token}`
@@ -48,6 +50,8 @@ serve(async (req) => {
       console.error('User data fetch error:', userData)
       throw new Error(userData.error.message || 'Failed to fetch user data')
     }
+
+    console.log('Successfully fetched user data')
 
     return new Response(
       JSON.stringify({
@@ -62,7 +66,10 @@ serve(async (req) => {
   } catch (error) {
     console.error('Error in instagram-auth function:', error)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: error.message,
+        details: error.toString()
+      }),
       { 
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }

@@ -4,7 +4,6 @@ import { Instagram } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
-// Use the correct client ID from your Meta Developer Console
 const INSTAGRAM_CLIENT_ID = "1088199005875337";
 const REDIRECT_URI = "http://localhost:5173/auth/callback";
 
@@ -64,7 +63,10 @@ export const InstagramConnect = () => {
 
           console.log('Exchanging code for access token...');
           const { data, error } = await supabase.functions.invoke('instagram-auth', {
-            body: { code, redirect_uri: REDIRECT_URI }
+            body: { 
+              code,
+              redirect_uri: REDIRECT_URI
+            }
           });
 
           if (error) {
@@ -120,7 +122,7 @@ export const InstagramConnect = () => {
   }, [toast]);
 
   const handleInstagramConnect = () => {
-    const authUrl = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=instagram_basic,instagram_content_publish&response_type=code`;
+    const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user_profile,user_media&response_type=code`;
     console.log('Redirecting to auth URL:', authUrl);
     window.location.href = authUrl;
   };
