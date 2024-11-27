@@ -25,7 +25,10 @@ export const InstagramConnect = () => {
           .eq('id', user.id)
           .single();
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error loading Instagram status:', error);
+          throw error;
+        }
         
         setIsConnected(data?.instagram_connected && !!data?.instagram_access_token);
       } catch (error) {
@@ -59,18 +62,21 @@ export const InstagramConnect = () => {
           const { data: { user } } = await supabase.auth.getUser();
           if (!user) throw new Error("User not authenticated");
 
-          // Exchange code for access token
+          console.log('Exchanging code for access token...');
           const { data, error } = await supabase.functions.invoke('instagram-auth', {
             body: { code, redirect_uri: REDIRECT_URI }
           });
 
           if (error) {
             console.error('Instagram auth error:', error);
-            if (error.message.includes("invalid_request")) {
-              throw new Error("Invalid Instagram authorization request. Please try again.");
-            }
             throw error;
           }
+
+          if (!data || !data.access_token) {
+            throw new Error('No access token received from Instagram');
+          }
+
+          console.log('Successfully received access token');
 
           // Update profile with Instagram credentials
           const { error: updateError } = await supabase
@@ -83,7 +89,10 @@ export const InstagramConnect = () => {
             })
             .eq('id', user.id);
 
-          if (updateError) throw updateError;
+          if (updateError) {
+            console.error('Profile update error:', updateError);
+            throw updateError;
+          }
 
           setIsConnected(true);
           toast({
@@ -112,6 +121,7 @@ export const InstagramConnect = () => {
 
   const handleInstagramConnect = () => {
     const authUrl = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=instagram_basic,instagram_content_publish&response_type=code`;
+    console.log('Redirecting to auth URL:', authUrl);
     window.location.href = authUrl;
   };
 
